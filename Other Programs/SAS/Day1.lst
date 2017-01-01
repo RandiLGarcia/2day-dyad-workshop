@@ -1,0 +1,118 @@
+                                            The SAS System           10:26 Saturday, June 25, 2011   1
+
+                                         The Mixed Procedure
+
+                                          Model Information
+
+                        Data Set                     WORK.RDATA
+                        Dependent Variable           SATISFACTION_A
+                        Covariance Structure         Compound Symmetry
+                        Subject Effect               COUPLEID
+                        Estimation Method            REML
+                        Residual Variance Method     Profile
+                        Fixed Effects SE Method      Model-Based
+                        Degrees of Freedom Method    Satterthwaite
+
+
+                                       Class Level Information
+
+                         Class       Levels    Values
+
+                         COUPLEID       148    3 10 11 17 21 22 27 44 46 51
+                                               52 59 61 62 66 67 70 79 91 98
+                                               102 105 108 110 114 116 123
+                                               125 127 133 135 136 137 139
+                                               144 145 160 167 168 177 178
+                                               189 197 206 210 216 217 218
+                                               222 224 226 227 237 239 240
+                                               244 248 249 253 255 256 260
+                                               262 270 271 279 280 283 294
+                                               299 301 303 306 312 315 317
+                                               319 322 323 324 325 326 327
+                                               331 334 339 344 346 349 351
+                                               352 357 361 366 370 372 375
+                                               382 384 385 386 388 390 391
+                                               392 394 395 396 398 399 401
+                                               402 408 410 412 415 416 417
+                                               418 419 420 421 426 429 430
+                                               431 434 436 438 441 446 448
+                                               451 453 454 457 461 464 465
+                                               467 469 470 472 474 478 481
+                                               483 485
+                         PARTNUM          2    1.00 2.00
+
+
+                                             Dimensions
+
+                                 Covariance Parameters             2
+                                 Columns in X                      3
+                                 Columns in Z                      0
+                                 Subjects                        148
+                                 Max Obs Per Subject               2
+
+
+                                            The SAS System           10:26 Saturday, June 25, 2011   2
+
+                                         The Mixed Procedure
+
+                                       Number of Observations
+
+                             Number of Observations Read             296
+                             Number of Observations Used             296
+                             Number of Observations Not Used           0
+
+
+                                          Iteration History
+
+                     Iteration    Evaluations    -2 Res Log Like       Criterion
+
+                             0              1       444.02040240
+                             1              1       372.93831415      0.00000000
+
+
+                                      Convergence criteria met.
+
+
+                                        Estimated R Correlation
+                                         Matrix for COUPLEID 3
+
+                                      Row        Col1        Col2
+
+                                        1      1.0000      0.6197
+                                        2      0.6197      1.0000
+
+
+                                   Covariance Parameter Estimates
+
+                                                      Standard         Z
+                 Cov Parm     Subject     Estimate       Error     Value        Pr Z
+
+                 CS           COUPLEID      0.1540     0.02419      6.37      <.0001
+                 Residual                  0.09449     0.01102      8.57      <.0001
+
+
+                                           Fit Statistics
+
+                                -2 Res Log Likelihood           372.9
+                                AIC (smaller is better)         376.9
+                                AICC (smaller is better)        377.0
+                                BIC (smaller is better)         382.9
+
+
+                                   Null Model Likelihood Ratio Test
+
+                                     DF    Chi-Square      Pr > ChiSq
+
+                                      1         71.08          <.0001
+                                            The SAS System           10:26 Saturday, June 25, 2011   3
+
+                                         The Mixed Procedure
+
+                                     Solution for Fixed Effects
+
+                                              Standard
+                Effect            Estimate       Error      DF    t Value    Pr > |t|
+
+                Intercept           3.6047     0.03687     146      97.77      <.0001
+                GENDER_A           0.01351     0.01787     147       0.76      0.4507
+                YEARSMAR          -0.00038    0.004792     146      -0.08      0.9370

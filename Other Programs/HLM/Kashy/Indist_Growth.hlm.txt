@@ -1,0 +1,16 @@
+#WHLM CMD FILE FOR Ind_Growth.mdm
+numit:100
+stopval:0.0000010000
+level1:ASATISF=INTRCPT1+RANDOM
+level2:INTRCPT1=INTRCPT2+TIME+random
+level3:INTRCPT2=INTRCPT3+random
+level3:TIME=INTRCPT3+random
+fixtau2:3
+fixtau3:3
+accel:5
+hypoth:n
+graphgammas:C:\Users\NSOE-CTC\Desktop\DATIC Madura\grapheq.geq
+r_e_model:homol1var
+title:no title
+output:C:\Users\NSOE-CTC\Desktop\DATIC Madura\hmlm2.html
+fulloutput:n

@@ -1,0 +1,270 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+
+<html>
+
+<head>
+
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+   <meta name="GENERATOR" content="Mozilla/4.77 [en] (Windows NT 5.0; U) [Netscape]">
+
+   <title>DyadR (David A. Kenny)</title>
+
+</head>
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+
+</script>
+
+<script type="text/javascript">
+
+_uacct = "UA-2664674-1";
+
+urchinTracker();
+
+</script>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Mediation Ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1778372474464793"
+     data-ad-slot="4013549063"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<hr size=2 width="100%" align=center>
+
+
+<body text="#000000" bgcolor="#FFFFFF" link="#0000FF" vlink="#FF0000" background="/img/bg.gif">
+
+<p><font color="#A52A2A">David
+  
+  A. Kenny</font><br>
+<font color="#A52A2A">April 1, 2016</font><br>
+</p>
+<center>
+  <p><font face="arial"><font size=+5 color="#CC33CC">DyadR: Web Programs </font></font></p>
+  <p><font face="arial"><font size=+5 color="#CC33CC">for Dyadic Data Analysis</font></font></font>
+  </p>
+  <hr width=70%>
+</center>
+<font face="Arial,Helvetica"><font size=+2>
+<p><font face="Arial,Helvetica"><font size=+2>Currently there are eight apps available on the web for dyadic data analysis:</font></font>
+<blockquote>
+  <p><font face="Arial,Helvetica"><font size=+2><a href="https://davidakenny.shinyapps.io/APIM_MM/">APIM_MM</a></font><font face="Arial,Helvetica"><font size=+2> (click to run)</font></font>:<font size=+2> Actor-Partner Interdependence Model with Multilevel Modeling (both distinguishable and indistinguishable dyads) -- <a href="#APIMM">learn more</a></font></font></p>
+  <p><font face="Arial,Helvetica"><font size=+2><a href="https://davidakenny.shinyapps.io/APIMeM/">APIMeM</a></font><font face="Arial,Helvetica"><font size=+2> (click to run)</font></font>:<font size=+2> Actor-Partner Interdependence Mediation Model with Structural Equation  Modeling (indistinguishable dyads only) -- <a href="#APIMeM">learn more</a></font></font></p>
+  <p><font face="Arial,Helvetica"><font size=+2><a href="https://davidakenny.shinyapps.io/APIMoM/">APIMoM</a><font face="Arial,Helvetica"> (click to run)</font></font>:<font size=+2> Actor-Partner Interdependence Moderation Model with Structural Equation  Modeling (indistinguishable dyads only) -- <a href="#APIMoM">learn more</a></font></font></p>
+  <p><font face="Arial,Helvetica"><font size=+2><a href="https://davidakenny.shinyapps.io/Common_Fate/">Common_Fate</a><font face="Arial,Helvetica"> (click to run)</font></font>:<font size=+2> Common Fate  Model with Indistinguishable Dyads -- <a href="#CFM">learn more</a></font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2><a href="https://davidakenny.shinyapps.io/CFA_D/">CFA_D</a> (click to run): Confirmatory Factor Analysis with Distinguishable Dyads <font face="Arial,Helvetica">(single-factor model) </font>--</font></font> <font face="Arial,Helvetica"><font size=+2><a href="#CFAD">learn more</a></font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2><a href="https://davidakenny.shinyapps.io/CFA_I/">CFA_I</a> (click to run): Confirmatory Factor Analysis with Indistinguishable Dyads (single-factor model) --</font></font> <font face="Arial,Helvetica"><font size=+2><a href="#CFA">learn more</a></font></font>  
+<p><font face="Arial,Helvetica"><font size=+2><a href="https://davidakenny.shinyapps.io/Dingy/">Dingy</a> (click to run): Tests of Distinguishability and Nonindependence -- <a href="#DINGY">learn more</a></font></font></p>
+  <p><font face="Arial,Helvetica"><font size=+2><a href="https://davidakenny.shinyapps.io/BetweenO/">BetweenO</a> (click to run): Model with Between-Dyads Outcome with Indistinguishable Dyads -- <a href="#BETO">learn more</a></font></font>  </p>
+  <p>&nbsp;</p>
+</blockquote>
+<p><font face="Arial,Helvetica"><font size=+2>All of these programs are R programs, but to run them, the user need not download R nor be at all familiar with R. One simply goes to the website (click on the name above) and  is prompted about the data and the analysis that is desired. The results of the analysis will appear on the screen (and we hope soon in a downloadable file). These programs were written by David A. Kenny with assistance from Thomas Ledermann, Robert Ackerman, Lara Stas, and Axel Mayer. They all use RStudio's <a href="http://shiny.rstudio.com/">shiny web application framework</a>. I eagerly looking for others to help me in this endeavor.</font></font><p><font face="Arial,Helvetica"><font color="green" size=+2><strong>T</strong></font></font><font face="Arial,Helvetica" size=+2><font color=green><strong>hese programs are  all very much in development and there are likely bugs and errors. Results should be carefully checked!</strong></font></font>
+<p><font face="Arial,Helvetica"><font color="green" size=+2><strong>It appears the t</strong></font></font><font face="Arial,Helvetica" size=+2><font color=green><strong>hese programs have difficulty with very large datasets, i.e., those with hundreds of variables. It is advisable to create a smaller dataset before running these programs.</strong></font></font>
+<p><font face="Arial,Helvetica"><font size=+2>After the descriptions of the programs, details about the inputs and outputs to the program are presented.</font></font>
+<p><font face="Arial,Helvetica"><font size=+2>To view a powerpoint that describes an application of two of the programs <a href="DyadR.ppt">click here</a>.</font></font>
+<p><font face="Arial,Helvetica"><font size=+2 color=purple>Other Web-based Shiny Apps</font></font>
+<blockquote>
+
+<p>
+<font face="Arial,Helvetica"><font size=+2><a href="https://robert-ackerman.shinyapps.io/APIMPowerR/">
+APIMPowerR</a><font face="Arial,Helvetica"> (click to run)</font></font>:<font size=+2> Power analyses for Actor-Partner Interdependence Model with indistinguishable dyads written by Rob Ackerman and David A. Kenny </font></font>
+<p><font face="Arial,Helvetica"><font size=+2><a href="https://robert-a-ackerman.shinyapps.io/APIMPowerRdis/">APIMPowerRdis</a><font face="Arial,Helvetica"> (click to run)</font></font>:<font size=+2> A beta version program for power analyses for Actor-Partner Interdependence Model with both indistinguishable and indistinguishable dyads written by Rob Ackerman and David A. Kenny. Please let us know about suggestions and errors.</font></font>
+<p><font face="Arial,Helvetica"><font size=+2><a href="http://davidakenny.net/DyadR/RDDD.htm"></a></font></font><font face="Arial,Helvetica"><font size=+2><a href="http://davidakenny.net/DyadR/RDDD.htm">RDDD </a>(click to go to page): Three different programs to restructure dyadic data written with Thomas Ledermann</font></font></blockquote>
+<blockquote>
+  <p><font face="Arial,Helvetica"><font size=+2><a href="https://larastas.shinyapps.io/APIM_SEM/APIM_SEM">APIM_SEM</a>: Actor-Partner Interdependence Model estimated by SEM written by Lara Stas </font></font>
+</blockquote>
+<p><font face="Arial,Helvetica"><font size=+2 color=purple>General Points about these Apps</font></font>
+<p><font face="Arial,Helvetica"><font size=+2>(Not all the programs are currently written this way but eventually they will all be.) The open screen contain two upper tabs. The one on the left is for the app and the one on the right called &quot;Help and Contact&quot; which contain brief documentation, links, and an email address for enquires.</font></font>
+<p><font face="Arial,Helvetica"><font size=+2>The main page contains a set of vertical tabs on the right. The user begins by completing in order the    green tabs.  At the top always is the green "Select Data" tab which reads a    dataset in either SPSS or csv format.                One then proceeds down the green tabs completing them in order. After the green tabs is the  set of black tabs are black which contain optional information.                Once the run is set up, the user hits the blue tab and the blue &quot;Begin the Data Analysis&quot; button to run the   analysis.  Eventually, the results appear on the left side of screen and the user   can select text, tables, or computer output.                Some apps allow for the display of figures. Finally if one wants to save the output, the user hits the bottom purple tab of &quot;Download Output&quot; that saves the text, tables, computer output, and figures (if there are any).</font></font>
+<p><font face="Arial,Helvetica"><font size=+2>The apps are written to be &quot;reactive.&quot;  That is, after the run is completed and even after the files are downloaded, the user can make changes in the analysis. This feature is especially useful if the user has made an error in that the error can be corrected without having to start all over (e.g., read the dataset, enter the variables, and so on).</font></font>
+<hr width=70%><a name=APIMM>
+<p><font size=+4><strong>APIM_MM</strong></font></p>
+<p></p>
+<p><font face="Arial,Helvetica"><font size=+2>This program conducts an Actor-Partner Interdependence analysis of dyadic data. Data must be in a</font></font> <font size="+2" face="Arial,Helvetica" color=green>pairwise structure.<font size="+2" face="Arial,Helvetica" color=black>  There must be a numeric dyad identification variable  on each record and no more than two records can have the same score on the dyad identification variable.  The program is NOT for the analysis of longitudinal dyadic analysis nor does it allow for non-normal outcomes.  There is 30 pages of documentation for this program with screenshots and three examples (<a href="http://davidakenny.net/doc/APIM_MM.pdf">click here</a>).</font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2> For details on the APIM, read Chapter 7 of Dyadic Data Analysis by Kenny, Kashy, and Cook (2006).            Also webinars (small charge) on the <a href="http://davidakenny.net/webinars/Dyad/Standard/APIM/APIM.html">APIM</a> and <a href="http://davidakenny.net/webinars/Dyad/Standard/MLM_Indistinguishable/MLM_Indistinguishable.html">APIM Estimated by Multilevel Modeling</a> might be helpful. The defining feature of the APIM is measuring the effect of one mixed variable on another mixed variable: Measured is the effect of a person's own X on his or her Y (the actor effect) and <font face="Arial,Helvetica"> the effect of a person's partner's X on his or her Y (the partner effect)</font>. </font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>The program requires at least one predictor mixed variable and one outcome mixed variable. Dyad members can be distinguishable or indistinguishable. Covariates can be included and an analysis of actor-partner interactions for each mixed variable can be estimated using either a product score or a discrepancy score. With distinguishability, pooled actor and partner effects across members are presented, as well as  tests of distinguishability.  </font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>The outcome variable is assumed to be normally distributed, but outliers can be removed. The user can specify removing from the analysis standardized residuals values that exceed a certain value. (If am working on better measures of outliers.)</font></font></p>
+<p><font size="+2" face="Arial,Helvetica">The program  can be relatively easily adapted to test for between-dyads moderators of  actor and partner effects. Consult the </font><font size="+2" face="Arial,Helvetica" color=green><font size="+2" face="Arial,Helvetica" color=black>third example of the <a href="http://davidakenny.net/doc/APIM_MM.pdf">documentation</a></font></font><font size="+2" face="Arial,Helvetica">. </font></p>
+<p><font face="Arial,Helvetica"><font size=+2>The program displays in  text, tables, and computer output, and figures. All of the output can be saved in an output in either docx, html, or pdf formats.</font></font></p>
+
+
+<hr size=2 width="100%" align=center>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Mediation Ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1778372474464793"
+     data-ad-slot="4013549063"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<hr size=2 width="100%" align=center>
+
+<p>
+<a name=APIMeM>
+<p><font size=+4><strong>APIMeM</strong></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>The program conducts an APIM mediation analysis using structural equation modeling. It requires three mixed variables in a dyad dataset. One  variable, X, is presumed to cause M which in turn is presumed to cause Y. Estimates and tests of direct, indirect, and total effects are estimated and tested. The structural equation modeling program lavaan is used to estimate mediation models. One can use Monte Carlo or traditional non-parametric bootstrap confidence intervals for indirect effects.</font><font face="Arial,Helvetica"><font size=+2> The structural equation modeling program lavaan is used to estimate mediation models.</font></font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>To use APIMeM, one goes through the tabs on the left of the opening screen: </font></font></p>
+<blockquote>
+  <p><font face="Arial,Helvetica"><font size=+2>First the green &quot;Select Data&quot; tab is clicked. Either an SPSS or csv (comma separated variables) can be read. </font></font></p>
+  <p><font face="Arial,Helvetica"><font size=+2>Next the green &quot;Basic Information&quot; tab is clicked. The user names the X, Y, and M variables, as well as the the two members. The defaults can be accepted. The user also decides whether to allow for mean and variances differences between the members.</font></font></p>
+  <p><font face="Arial,Helvetica"><font size=+2>The green &quot;Variables&quot; tab selects the six variables for the analysis from the dataset. They are chosen from a variable list. (Sometimes one may need to click the &quot;Check to View Variable List&quot; box to be able to see the entire list.</font></font></p>
+  <p><font face="Arial,Helvetica"><font size=+2>The optional black tab of &quot;Miscellaneous&quot; allows the user to either change alpha or the bootstrapping method. Moreover, the user can  set k, the ratio of the partner effect to actor effect, for both the M and Y equations to estimate a simpler model.</font></font></p>
+  <p><font size="+2" face="Arial,Helvetica">To begin the run, the blue &quot;Run Analysis&quot; tab is clicked and then the &quot;Click Here to Begin the APIM Mediation Analysis&quot; button. If one runs a non-parametric bootstrap, it may take several minutes before the results appear on the right.</font></p>
+  <p><font size="+2" face="Arial,Helvetica">To download the results, the text, tables, computer output, and figure(s), the user clicks the purple &quot;Download Output&quot; and then choses the name of the file and its format. T</font><font face="Arial,Helvetica"><font size=+2>he output can be saved in an output in either docx, html, or pdf formats. An example of such pdf output can be viewed <a href="http://davidakenny.net/doc/APIMeM_Output.pdf">here</a>.</font></font></p>
+</blockquote>
+<p><font face="Arial,Helvetica"><font size=+2>The program is currently limited to indistinguishable dyads but the user can allow mean and variances to differ.  The user can enter k values (the ratio of partner to actor effects) to test specialized models. For instance, there might be only actor effects from X to M (k<sub>M</sub> = 0), and the actor and partner effects from M to Y might be equal (k<sub>Y</sub> = 1).</font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2> Currently no covariates are permitted.</font></font> <font face="Arial,Helvetica"><font size=+2>THIS VERY NEW PROGRAM HAS NOT BEEN FULLY TESTED.</font></font></p>
+<p>&nbsp;</p>
+<hr width=70%>
+<a name=APIMoM>
+<p><font size=+4><strong>APIMoM</strong></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>The program conducts an APIM moderation analysis using SEM. It requires three mixed variables in a dyad dataset. One  variable, X, is presumed to cause Y and those effects are presumed to vary (i.e., to moderate) due to M. Simple effects of the effect of X on Y at various levels of M are estimated. The structural equation modeling program lavaan is used to estimate moderation models.</font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>The program is currently limited to indistinguishable dyads but the user can allow mean and variances to differ.  The user can estimate specialized models that place constaints on the four interaction effects. The constraints involve  k which is the ratio of partner to actor interaction effects. One approach is to use the k ratios from the X and M main effects to constrain the interaction effects. A second approach is to estimate the k ratios from the interaction effects. For both of these approachs, a test of the constraints is provided, as well as a Monte Carlo estimate of the confidence interval for the k's. The third approach is have the user specify the k values. (See the <a href="http://davidakenny.net/papers/APIMoM/tech.pdf">technical appendix</a> of Garcia et al. for more details on k and tests of moderation.)</font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2> Currently no covariates are permitted.</font></font> <font face="Arial,Helvetica"><font size=+2>THIS VERY NEW PROGRAM HAS NOT BEEN FULLY TESTED.</font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>To use APIMoM, one goes through the tabs on the left of the opening screen: </font></font></p>
+<blockquote>
+  <p><font face="Arial,Helvetica"><font size=+2>First the green &quot;Select Data&quot; tab is clicked. Either an SPSS or csv (comma separated variables) can be read. </font></font></p>
+  <p><font face="Arial,Helvetica"><font size=+2>Next the green &quot;Basic Information&quot; tab is clicked. The user names the X or the predictor, Y of the outcome , and M or the moderator variables, as well as the the two members. The defaults can be accepted. The user also decides whether to allow for mean and variances differences between the members.</font></font></p>
+  <p><font face="Arial,Helvetica"><font size=+2>The green &quot;Variables&quot; tab selects the six variables for the analysis from the dataset. They are chosen from a variable list. (Sometimes one may need to click the &quot;Check to View Variable List&quot; box to be able to see the entire list.</font></font></p>
+  <p><font face="Arial,Helvetica"><font size=+2>The optional black tab of &quot;Miscellaneous&quot; allows the user to  change alpha. Moreover, the user can  set k, the ratio of the partner  to actor variables, for both the X and M variables. One can empirically estimate the k's, input a priori k values, or use the main effect k values. (<font face="Arial,Helvetica">See the <a href="http:\\davidakenny.net/papers/APIMoM/tech.pdf">technical appendix</a> of Garcia et al. for more details.) A statistical test is used to evaluate whether the k's, however chosen, can explain the pattern of moderation effects. (It is advisable to only use this option if there is detectable interaction in the data.)</font></font></font> </p>
+  <p><font size="+2" face="Arial,Helvetica">To begin the run, the blue &quot;Run Analysis&quot; tab is clicked and then the &quot;Click Here to Begin the APIM Mediation Analysis&quot; button. </font></p>
+  <p><font size="+2" face="Arial,Helvetica">To download the results, the text, tables, computer output, and figure(s), the user clicks the purple &quot;Download Output&quot; and then choses the name of the file and its format. T</font><font face="Arial,Helvetica"><font size=+2>he output can be saved in an output in either docx, html, or pdf formats. An example of such pdf output can be viewed <a href="http://davidakenny.net/doc/APIMoM_Output.pdf">here</a>.</font></font></p>
+</blockquote>
+<p><font face="Arial,Helvetica"><font size=+2>The program is currently limited to indistinguishable dyads but the user can allow mean and variances to differ.</font></font></p>
+<p>&nbsp;</p>
+<hr width=70%>
+<a name=CFM>
+<p><font size=+4><strong>Common_Fate</strong></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>The program conducts a Common Fate Analysis. The measures from the dyad members are presumed to be indicators of a latent variable. One latent 	variable, X, is presumed to cause the other, Y. Data must be in a dyad data structure. The errors of the X and Y are correlated across members, as assumption which is tested. To be able to estimate this model, the two X and the two Y measures must intercorrelate. A dyad dataset is entered and both X and Y must be mixed variables. Models are estimated using the structural equation modeling program lavaan.</font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>The program is currently limited to indistinguishable dyads which yields a saturated model and so the program does not provide fit indices. The model is estimated by lavann. Currently no covariates are permitted.</font></font> <font face="Arial,Helvetica"><font size=+2>THIS VERY NEW PROGRAM HAS NOT BEEN FULLY TESTED.</font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>The program displays in the text, tables, computer output, and a figure.</font></font></p>
+<p>&nbsp;</p>
+<hr width=70%>
+<a name=CFAD><font size=+4><strong>CFA_D</strong></font>
+<p><font face="Arial,Helvetica"><font size=+2>This program tests evaluates a confirmatory factor analysis model using lavaan for both members of dyad with members assumed to be distinguishable. THIS PROGRAM HAS NOT BEEN FULLY TESTED. A minimum of two indicators per member are needed, but three or more is recommended. A dyad dataset is read. Each indicator is assumed to load on a single factor and errors of the same indicator are allowed to be correlated across members. Two models are estimated. One is the configural model in which there are no constraints are made across members, but a single factor model is estimated. The second is a model in which constraints are made on the model. Possible constraints are equal loadings across members, equal intercepts, equal error variances, equal factor means, equal factor variances, equal slopes from the between-dyads variables (if there are any) to the latent variables, and zero correlation of errors. The user can choose a model of complete invariance which treats dyad members as indistinguishable.</font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2> The program does not currently allow for within-dyads variables. Again, it is limited to single latent variable and their can be no correlated errors within a latent variable. The app's output consists of computer output, text output, tables, and a figure of the specified model. The hope is to eventually allow the user to choose an alternative model to the specified model.</font></font></p>
+<p>&nbsp;</p>
+<hr width=70%>
+<a name=CFA>
+<p><font size=+4><strong>CFA_I</strong></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>This program tests evaluates a confirmatory factor analysis model using lavaan for both members of dyad. Members are assumed to be indistinguishable. A minimum of two indicators per member are needed, but three or more is recommended. A dyad dataset is read. Each indicator is assumed to load on a single factor and loadings are set equal across the two members. Errors of the same indicator are allowed to be correlated across members.</font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>The program allows for between-dyads variables which are assumed to cause each latent variable. The program does not currently allow for within-dyads variables. Again it is limited to single latent variable and there can be no correlated error across indicators of the same factor. <font face="Arial,Helvetica"> The app's output consists of computer output, text output, tables, and a figure of the specified model.</font></font></font></p>
+<p><font size="+2" face="Arial,Helvetica">The user can choose to display the model with or without correlated errors. Alternatively, the user can allow the program to pick the &quot;better&quot; model in terms of fit.</font></p>
+<hr width=70%>
+<a name=DINGY>
+<p><font size=+4><strong>DINGY</strong></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>This program tests the null hypothesis that dyad members are indistinguishable. For instance, if the dataset is for hetereosexual couples, the the test is that for each mixed variable the mean and variance are the same for men and women and that correlation between any pair of variables is the same for men and women. In addition the program evaluates whether scores are correlated across members. A dyad dataset must be used as input.</font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>The program allows for between-dyads variables and determines if the correlations of those variables are the same for the two members. The program also  allows for a second within-dyads variable, besides the one used to distinguish dyad members and in tests distinguishability constrains  the mean of this variable to be half of the sum of the two scores and the correlations with mixed variables to be equal but opposite sign.</font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>The program also tests whether scores across the two members are correlated which can be useful if one wants to claim that scores are independent. Additionally, it gives the I-SAT chi square and degrees of freedom, as well as the chi square and degrees of freedom for null model.</font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>One can download the output, the text, tables, and computer output (the indistinguishable run) to a file. An example file is contained <a href="http://davidakenny.net/doc/Dingy_Output.pdf">here</a>.</font></font></p>
+<hr width=70%>
+<a name=BETO>
+<p><font size=+4><strong>BETWEENO</strong></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>This program estimates models with a between-dyads outcome variables. Dyad members must be indistinguishable.  A dyad dataset must be used as input. The outcome must be a between-dyads variables, but must be measured at the interval level of measurement (i.e., no dichtomies).</font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>The program is very preliminary and results should be viewed with caution. The program outputs text, tables, and computer output.</font></font></p>
+<p>&nbsp;</p>
+<hr width=70%>
+<p>&nbsp;</p>
+<p><font size=+4><strong>Data Preparation</strong></font></p>
+<p>
+<p><font face="Arial,Helvetica"><font size=+2>Data must must be in the proper format. APIM_MM requires a pairwise dataset and  the other programs   require a dyad dataset. You may need to restrucure your data before running the program. Both programs accept as input a SPSS &quot;sav&quot; or text file in which the data are separated by commas (a &quot;csv&quot; file). For the csv file variable names are in the first line of the dataset.</font></font></p>
+<p><font face="Arial,Helvetica"><font size=+2>For APIM_MM, it is helpful (but not required) to have the first variable in the dataset be the dyad identification variable.</font></font></p>
+<hr width=70%>
+<p>&nbsp;</p>
+<p><font size=+4><strong>Entering Parallel Lists of Variables</strong></font> </p>
+<p>
+<p><font face="Arial,Helvetica"><font size=+2>Several of these programs expect parallel lists of variables:  APIM_MM expects the name of actor and partner variables in the dataset and CFA_I, CFA_D,  Dingy, and BetweenO expect two lists of mixed variables, one for each member. (APIMeM and Common_Fate only use the &quot;check&quot; option.) Three different options are offered to enter these parallel lists:</font></font></p>
+<blockquote>
+
+<p><font face="Arial,Helvetica" size=+2 color=green>Check:<font size=+2 color=black> This is perhaps the most familar option. If chosen, the user is given the entire list of variables in the dataset and the user checks those that are appropriate for the set. The set of variables need not be checked in the same order for the two members, but they must be in the same order in the dataset itself. For instance for CFA_D, if the variables were HSat, WSat, HAge, and WAge (H being husband and W being wife), the user might check (in any order) HSat and HAge for husbands and then WSat and WAge for wives (again in any order). However in the dataset, if HSat comes before HAge, then WSat must also come before WAge. If this is not the case (WAge comes before WSat), this option cannot be used unless one  reorders the variables in the datafile.</font></font></p>
+<p><font face="Arial,Helvetica" font size=+2 color=green>Lists:<font size=+2 color=black> For this method, the user needs to type the complete names of both set of variables. So for Husband the list would be &quot;HSat,HAge&quot; and for Wife it would be </font><font face="Arial,Helvetica" color=black font size=+2>&quot;WSat,WAge&quot;. Order within a list does not matter, but the order needs to be the same across lists, in this case with Sat ahead of Age for both husband and wife. Variables on the list are separated by commas.</font> </font></p>
+<p><font face="Arial,Helvetica" font size=+2 color=green>Suffix:<font size=+2 color=black> This is least obvious but often the simplest strategy and because it the simplest, it the default option. Presume that the variables are <font face="Arial,Helvetica"><font face="Arial,Helvetica">Sat_W, Age_W,<font face="Arial,Helvetica"><font face="Arial,Helvetica"><font face="Arial,Helvetica">Sat_H, and Age_H. The member is designated by a suffix, H or W. With this method, the user gives a single list without the suffix of &quot;Sat,Age&quot; and then tells the program what suffix is, in this case &quot;H&quot; and &quot;W&quot;. Note for APIM_MM the suffix defaults to &quot;A&quot; and &quot;P&quot; but there is no default for CFA_I, CFA_D, or Dingy.</font></font></font></font></font></font></font></p>
+</blockquote>
+
+<p><font face="Arial,Helvetica"><font size=+2>The user is free to decide which option is best. It is always advisable to check in the output that the correct set of variables are chosen. Common_Fate only allows the check option.</font></font></p>
+<hr width=70%>
+<a name=Pow>
+<p><font size=+4><strong>Program Output</strong></font>
+<p><font size="+2" face="Arial,Helvetica">All output is to the screen, but it can be copied. Planned is way to download all the output but it is currently not yet available.</font>
+<p><font size="+2" face="Arial,Helvetica" color=green>APIM_MM:</font> <font size="+2" face="Arial,Helvetica"> Four different tabs are presented: Text, Tables, Computer Output, and Figures.</font>
+<p><font size="+2" face="Arial,Helvetica">Text: If there are any warnings, they are presented first. Then a description of the sample the purpose of the study is given. Then for each mixed predictor, the actor and partner effects, and k ratios. If requested, there a test of the actor-partner interaction. </font>
+<p><font size="+2" face="Arial,Helvetica">Tables: The descriptive statistics for the outcome, mixed predictors variables, and covariates are presented. Then a table of intercepts, actor and partner effects, k ratios, and effects of the covariates. For distinguishable dyads overall effect are presented as well as results of tests of distinguishability.</font>
+<p><font size="+2" face="Arial,Helvetica">Computer Output: The basic gls run is presented. </font>
+<p><font size="+2" face="Arial,Helvetica">Figures: The basic APIM diagram is given for up to eight predictor variables. Although different figures are given, they are all from the same analysis. </font>
+<p>
+<p><font size="+2" face="Arial,Helvetica" color=green>Common_Fate:</font> <font size="+2" face="Arial,Helvetica"> Four different tabs are presented: Text, Tables, Computer Output, and Figure.</font>
+<p><font size="+2" face="Arial,Helvetica">Text: A brief description of the sample the purpose of the study is given. The program looks for problems, such as poor loadings and a failure of discriminant validity.</font>
+<p><font size="+2" face="Arial,Helvetica">Tables: There are two tables. Table gives the descriptive statistics. Table 2 provides means and variances from the analysis.</font>
+<p><font size="+2" face="Arial,Helvetica">Computer Output: The lavaan output for the model with and without correlated errors is  presented. </font>
+<p><font size="+2" face="Arial,Helvetica" color=green>CFA_D:</font><font size="+2" face="Arial,Helvetica"> Four   different tabs are presented: Text, Tables,  Computer Output, and Figure. </font>
+<p><font size="+2" face="Arial,Helvetica">Text: A description of the sample the purpose of the study is given. The fit of the configural and specified model are given. For the specified models, the results are discussed and an analysis of correlated errors and Heywood cases, if there are any, are presented.</font>
+<p><font size="+2" face="Arial,Helvetica">Tables: The descriptive statistics for the indicators  are presented. Next a table of fit statistics for the configural and specified model are given. Then for both members, a table of loadings, error variances, and intercepts and their p values is presented. If there are between dyads variables, their paths to the latent variables given in a fourth table.</font>
+<p><font size="+2" face="Arial,Helvetica">Computer Output: For both the configural and specified models, the user is given the  overall summary of the lavaan estimated model, the estimates, and the modification indices. </font>
+<p>
+<font size="+2" face="Arial,Helvetica">Figure: The figure shows up to 5 indicators but currently does show means, intercepts, and variances.</font>
+<p><font size="+2" face="Arial,Helvetica" color=green>CFA_I:</font><font size="+2" face="Arial,Helvetica"> Four   different tabs are presented: Text, Tables,  Computer Output, and Figure. The figure shows up to 5 indicators.</font>
+<p><font size="+2" face="Arial,Helvetica">Text: A description of the sample the purpose of the study is given. The the results of the test distinguishability, the correlation between the latent variables, and fit of various models are given. Results of the analysis of correlated errors and Heywood cases, if there are any, are presented. The user can choose to use the model with and without correlated errors across the two members.</font><p><font size="+2" face="Arial,Helvetica">Tables: The descriptive statistics for the indicators  are presented. Then a table of loadings, error variances, and intercepts and their p values are given. If there are between dyads variables, their paths to the latent variable given in a third table.</font>
+<p><font size="+2" face="Arial,Helvetica">Computer Output: The summary of lavaan model of the test of distinguishability is given. Then for the CFA, the overall summary, the estimates, and the modification indices are given for both the model with and without correlated errors.</font>
+<p><font size="+2" face="Arial,Helvetica">Figure: The figure shows the loadings, standardized and unstandardized, as well as the correlated errors if there any.</font>
+<p><font size="+2" face="Arial,Helvetica" color=green>Dingy:</font> <font size="+2" face="Arial,Helvetica"> Three different tabs are presented: Text, Tables, and Computer Output</font>
+<p><font size="+2" face="Arial,Helvetica">Text:</font> <font size="+2" face="Arial,Helvetica"> A description of the sample and the purpose of the analysis is given. Then the results of models which force means, variances, and correlations equal are presented. The  best fitting model if there is one is suggested. Also given is the  ISat chi square, df, and null model which can be useful for dyadic SEM analyses that treat dyad members as indistinguishable. If the option is chosen, an overall test of nonindependence is given, assuming both distinguishability and indistinguishability.</font>
+<p><font size="+2" face="Arial,Helvetica">Tables: Up to four tables are available: Descriptive statistics for the mixed variables, Model tests, Comparisons between models, and Tests of nonindependence.</font>
+<p><font size="+2" face="Arial,Helvetica">Computer Output: The lavaan output from the model that test for complete distinguishability. You may need to adjust the screen size for best viewing.</font>
+<p><font size="+2" face="Arial,Helvetica" color=green>BetweenO:</font> <font size="+2" face="Arial,Helvetica"> Three different tabs are presented: Text, Tables, and Computer Output</font>
+<p><font size="+2" face="Arial,Helvetica">Text:</font> <font size="+2" face="Arial,Helvetica"> A description of the sample and the purpose of the analysis is given. Then the results from three models: one with interactions (product), one without interactions, and one that trims out non-significant interactions.</font>
+<p><font size="+2" face="Arial,Helvetica">Tables: Three table are outputted, one for each model.</font>
+<p><font size="+2" face="Arial,Helvetica">Computer Output: The lm output for each model is outputted.</font>
+<p>
+<hr width=70%>
+<a name=Pow>
+<p><font size=+4><strong>Program Defaults</strong></font> 
+
+<p><font size="+2" face="Arial,Helvetica">Alpha is assumed to equal of .05 in both programs, but the user can override that default. For APIM_MM, the program defaults that the first variable in the dataset is the dyad identification variable, the second variable is the outcome variable, and that the third variable is distinguishing variable (if there is one).</font>
+<p>
+<hr width=70%>
+<a name=Pow>
+<p><font size=+4><strong>Error Checks</strong></font>
+<p><font size="+2" face="Arial,Helvetica">All the  programs have error checks. Nonetheless, it is still possible to crash the program without it reporting an error. Suggestions for error checks are appreciated.</font>
+<hr width=70%>
+<a name=Pow>
+<p><font size=+4><strong>Variable Names</strong></font>
+<p><font size="+2" face="Arial,Helvetica">The user need not name the variables, but to make interpretation easier, it is strongly suggested that the user provide appropriate names. For ItoP and ItoP, if there are 20 or fewer variables in the dataset, the user can optionally provide variable names for the text output.</font><p>&nbsp;</p>
+<hr width=70%>
+<center>
+  <img SRC="/img/kenny.gif" height=55 width=111>
+
+<br><i>
+
+<font size=-2>
+
+<a href="http://davidakenny.net/index.htm" onMouseOver="self.status='Go back...'; return true;">
+
+Go back to homepage.</a></font></i></center>
+
+
+
+<!-- WiredMinds eMetrics tracking with Enterprise Edition V5.4 START -->
+<script type='text/javascript' src='https://count.carrierzone.com/app/count_server/count.js'></script>
+<script type='text/javascript'><!--
+wm_custnum='5f532c813ed48c4d';
+wm_page_name='DyadRweb.htm';
+wm_group_name='/services/webpages/d/a/davidakenny.net/public/DyadR';
+wm_campaign_key='campaign_id';
+wm_track_alt='';
+wiredminds.count();
+// -->
+</script>
+<!-- WiredMinds eMetrics tracking with Enterprise Edition V5.4 END -->
+</body>
+
+</html>
+

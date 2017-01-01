@@ -1,0 +1,26 @@
+#HLM2 MDM CREATION TEMPLATE
+mdmtype:0
+rawdattype:spss
+l1fname:C:\Users\NSOE-CTC\Desktop\acitelli hlm.sav
+l2fname:C:\Users\NSOE-CTC\Desktop\acitelli hlm.sav
+l1missing:n
+timeofdeletion:now
+mdmname:Acitelli_1
+*begin l1vars
+level2id:COUPLEID
+OPOS_A
+SAT_A
+OPOS_P
+HUSBAND
+WIFE
+*end l1vars
+*begin l2vars
+level2id:COUPLEID
+OPOS_A
+SAT_A
+OPOS_P
+HUSBAND
+WIFE
+*end l2vars
+*begin indicvars
+*end indicvars

@@ -1,0 +1,31 @@
+#HMLM2 MDM CREATION TEMPLATE
+rawdattype:spss
+l1fname:C:\Users\NSOE-CTC\Desktop\DATIC Madura\kash.sav
+l2fname:C:\Users\NSOE-CTC\Desktop\DATIC Madura\kash.sav
+l3fname:C:\Users\NSOE-CTC\Desktop\DATIC Madura\kash.sav
+l1missing:n
+timeofdeletion:now
+mdmname:overtime_13
+*begin l1vars
+level3id:DYADID
+level2id:OBS
+TIME
+ASATISF
+WOMAN
+MAN
+*end l1vars
+*begin l2vars
+level3id:DYADID
+level2id:OBS
+TIME
+OBS2
+*end l2vars
+*begin l3vars
+level3id:DYADID
+WOMAN
+MAN
+*end l3vars
+*begin indicvars
+WOMAN
+MAN
+*end indicvars

@@ -1,0 +1,29 @@
+#HMLM2 MDM CREATION TEMPLATE
+rawdattype:spss
+l1fname:C:\Users\NSOE-CTC\Desktop\DATIC Madura\kash.sav
+l2fname:C:\Users\NSOE-CTC\Desktop\DATIC Madura\kash.sav
+l3fname:C:\Users\NSOE-CTC\Desktop\DATIC Madura\kash.sav
+l1missing:n
+timeofdeletion:now
+mdmname:Ind_Growth.mdm
+*begin l1vars
+level3id:DYADID
+level2id:OBS
+ASATISF
+WOMAN
+MAN
+*end l1vars
+*begin l2vars
+level3id:DYADID
+level2id:OBS
+TIME
+OBS2
+*end l2vars
+*begin l3vars
+level3id:DYADID
+DYADD
+*end l3vars
+*begin indicvars
+WOMAN
+MAN
+*end indicvars
