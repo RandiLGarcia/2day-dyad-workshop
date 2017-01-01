@@ -1,0 +1,36 @@
+---
+title: "Two-Day Dyadic Data Analysis Workshop Schedule"
+output: html_document
+---
+#Workshop Schedule 
+##January, 2017
+##Instructor: Randi L. Garcia
+
+###Day 1:  Definitions, Restructuring, and The Actor-Partner Interdependence Model
++ Lecture and Lab 9-12 and 1:00-4:00
+  + Definitions
+  + Nonindependence 
+  + Introduction to the Acitelli Dataset, Data Structures, and Restructuring
+  + Introduction to the APIM
+    + Indistinguishable Dyads
+    + Distinguishable Dyads
+  + Test of Distinguishability
++ Late Afternoon Session 4:00-5:00
+  + Homework (optional)
+  + Restructure, Wok on Own Data, Individual Meetings
+
+###Day 2: Moderation, Mediation, and Over-time Models
++ Lecture and Lab 9-12 and 1:00-4:00
+  + Moderation in the APIM
+  + Mediation in the APIM
+  + Growth Curve Models
+    + Individual Growth Curve
+    + Dyadic Growth Curves
+  + Stability-Influence Model
+  + Binary Outcomes in the APIM
+    + Using Generalized Mixed Modeling
+    + Using Generalized Estimating Equations
++ Late Afternoon Session 4:00-5:00
+  + Homework (optional)
+  + Wok on Own Data, Individual Meetings
+
