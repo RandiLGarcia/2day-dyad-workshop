@@ -51,22 +51,22 @@ Individual to Pairwise struture
 
 ```{r}
 tempA <- acitelli_ind %>% 
-  mutate(genderE = gender) %>%
+  mutate(genderE = gender, partnum = 1) %>%
   mutate(gender = ifelse(gender == 1, "A", "P")) %>%
-  gather(variable, value, self_pos:genderE)%>%
+  gather(variable, value, self_pos:genderE) %>%
   unite(var_gender, variable, gender) %>%
   spread(var_gender, value)
 
 tempB <- acitelli_ind %>% 
-  mutate(genderE = gender) %>%
+  mutate(genderE = gender, partnum = 2) %>%
   mutate(gender = ifelse(gender == 1, "P", "A")) %>%
   gather(variable, value, self_pos:genderE)%>%
   unite(var_gender, variable, gender) %>%
   spread(var_gender, value)
 
 acitelli_pair <- bind_rows(tempA, tempB) %>%
-  arrange(cuplid)
-
+  arrange(cuplid) 
+  
 rm(tempA, tempB)
 head(acitelli_pair)
 ```

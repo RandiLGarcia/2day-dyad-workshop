@@ -1,5 +1,5 @@
 ---
-title: "R Notebook"
+title: "Day 1: MLM for Dyadic Data"
 output:
   html_document: default
   html_notebook: default
@@ -14,23 +14,47 @@ library(dplyr)
 acitelli_ind <- read.csv(file.choose(), header=TRUE)
 
 tempA <- acitelli_ind %>% 
-  mutate(genderE = gender) %>%
+  mutate(genderE = gender, partnum = 1) %>%
   mutate(gender = ifelse(gender == 1, "A", "P")) %>%
-  gather(variable, value, self_pos:genderE)%>%
+  gather(variable, value, self_pos:genderE) %>%
   unite(var_gender, variable, gender) %>%
   spread(var_gender, value)
 
 tempB <- acitelli_ind %>% 
-  mutate(genderE = gender) %>%
+  mutate(genderE = gender, partnum = 2) %>%
   mutate(gender = ifelse(gender == 1, "P", "A")) %>%
   gather(variable, value, self_pos:genderE)%>%
   unite(var_gender, variable, gender) %>%
   spread(var_gender, value)
 
 acitelli_pair <- bind_rows(tempA, tempB) %>%
-  arrange(cuplid)
-
+  arrange(cuplid) 
+  
 rm(tempA, tempB)
 ```
 
 
+Now we're ready to do multilevel modeling with the pairwise dataset.
+
+```{r}
+#install.packages("nlme")
+library(nlme)
+
+mlm <- gls(satisfaction_A ~ genderE_A + Yearsmar,
+          data = acitelli_pair,
+          correlation = corCompSymm(form=~1|cuplid),
+          na.action = na.omit)
+
+summary(mlm)
+```
+
+##Interpretation
+###Fixed Effects
+Intercept:  Predicted level of satisfaction for people married about 11 years.
+Effect of Gender:  Husbands are more satisfied than wives by .027 units (not significant); we need to double because the difference between Husbands (+1) and Wives (-1) is two units.
+Effect of yearsmar: For every year married, less satisfied by .0004 (not significant).
+
+###Random Effects
+	"Rho" is the correlation of residuals, 0.62.
+	"Residual standard error" is the error or unexplained variance (square-rooted).
+	Partial ICC equals .620, which is statistically significant.  Husbands and wives are very similar in their level of marital satisfaction.
