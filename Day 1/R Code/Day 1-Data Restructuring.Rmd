@@ -1,0 +1,73 @@
+---
+title: 'Day 1: Data Restructuring'
+output:
+  html_document: default
+  html_notebook: default
+---
+
+
+Importing the Acitelli dataset into R.
+
+```{r}
+acitelli_ind <- read.csv(file.choose(), header=TRUE)
+
+#Note that you can also specify the file path.
+#acitelli_ind <- read.csv(file = "C:/Users/Randi/Dropbox/Two-day Dyads (UCSF)/Workshop Materials/Data/acitelli individual.csv", header=TRUE)
+
+head(acitelli_ind)
+
+#View(acitelli_ind)
+```
+
+
+
+We ultimately want to get our data into the pairwise format for the APIM. We'll need some more packages.
+
+```{r}
+#install.packages("tidyr")
+#install.packages("dplyr")
+
+library(tidyr)
+library(dplyr)
+```
+
+
+
+Individual to Dyad struture
+
+```{r}
+acitelli_dyd <- acitelli_ind %>% 
+  mutate(gender = ifelse(gender == 1, "H", "W")) %>%
+  gather(variable, value, self_pos:simhob) %>%
+  unite(var_gender, variable, gender) %>%
+  spread(var_gender, value)
+
+head(acitelli_dyd)
+```
+
+
+
+Individual to Pairwise struture
+
+```{r}
+tempA <- acitelli_ind %>% 
+  mutate(genderE = gender) %>%
+  mutate(gender = ifelse(gender == 1, "A", "P")) %>%
+  gather(variable, value, self_pos:genderE)%>%
+  unite(var_gender, variable, gender) %>%
+  spread(var_gender, value)
+
+tempB <- acitelli_ind %>% 
+  mutate(genderE = gender) %>%
+  mutate(gender = ifelse(gender == 1, "P", "A")) %>%
+  gather(variable, value, self_pos:genderE)%>%
+  unite(var_gender, variable, gender) %>%
+  spread(var_gender, value)
+
+acitelli_pair <- bind_rows(tempA, tempB) %>%
+  arrange(cuplid)
+
+rm(tempA, tempB)
+head(acitelli_pair)
+```
+

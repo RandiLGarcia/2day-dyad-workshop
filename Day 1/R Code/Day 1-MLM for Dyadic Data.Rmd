@@ -1,0 +1,36 @@
+---
+title: "R Notebook"
+output:
+  html_document: default
+  html_notebook: default
+---
+
+Read in the individual data and convert to pairwise. 
+
+```{r}
+library(tidyr)
+library(dplyr)
+
+acitelli_ind <- read.csv(file.choose(), header=TRUE)
+
+tempA <- acitelli_ind %>% 
+  mutate(genderE = gender) %>%
+  mutate(gender = ifelse(gender == 1, "A", "P")) %>%
+  gather(variable, value, self_pos:genderE)%>%
+  unite(var_gender, variable, gender) %>%
+  spread(var_gender, value)
+
+tempB <- acitelli_ind %>% 
+  mutate(genderE = gender) %>%
+  mutate(gender = ifelse(gender == 1, "P", "A")) %>%
+  gather(variable, value, self_pos:genderE)%>%
+  unite(var_gender, variable, gender) %>%
+  spread(var_gender, value)
+
+acitelli_pair <- bind_rows(tempA, tempB) %>%
+  arrange(cuplid)
+
+rm(tempA, tempB)
+```
+
+

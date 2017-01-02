@@ -2,6 +2,7 @@
 title: "Two-Day Dyadic Data Analysis Workshop Schedule"
 output: html_document
 ---
+
 #Workshop Schedule 
 ##January, 2017
 ##Instructor: Randi L. Garcia
@@ -30,6 +31,9 @@ output: html_document
 + Lecture and Lab 9-12 and 1:00-4:00
   + Moderation in the APIM
   + Mediation in the APIM
+
+> Lunch 12:00 PM tp 1:00 PM
+  
   + Growth Curve Models
     + Individual Growth Curve
     + Dyadic Growth Curves
