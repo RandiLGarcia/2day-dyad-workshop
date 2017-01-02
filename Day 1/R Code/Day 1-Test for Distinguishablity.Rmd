@@ -1,0 +1,107 @@
+---
+title: "Day 1: Test for Distinguishability"
+output:
+  html_document: default
+  html_notebook: default
+---
+(Material in this handout is not in Kenny, Kashy, and Cook, 2006)
+
+Advantages of Treating Dyad Members as Indistinguishable
+	Simpler model with fewer parameters
+	More power in tests of actor and partner effects
+Disadvantages of Treating Dyad Members as Indistinguishable
+	If distinguishability makes a difference, then the model is wrong.
+	Sometimes the focus is on distinguishing variable and it is lost.
+	Some editors or reviewer will not allow you to do it.
+
+Two Runs
+	Distinguishable (either interaction or two-intercept, results are the same)
+		Different Actor and Partner Effects
+		Main Effect of Distinguishing Factor
+		Heterogeneity of Variance (CSH)
+	Indistinguishable (4 fewer parameters)
+		Same Actor and Partner Effects
+		No Main Effect of Distinguishing Factor
+		Homogeneity of Variance (CSR)
+
+Run using ML, not REML 
+Note the number of parameters
+	There should be 4 more than for the distinguishable run.
+Note the -2LogLikelihood (deviance)
+Subtract the deviances and number of parameters to get a ???2 with 4df
+
+If ???2 is not significant, then the data are consistent with the null hypothesis that the dyad members are indistinguishable. If however, ???2 is significant, then the data are inconsistent with the null hypothesis that the dyad members are indistinguishable (i.e., dyad members are distinguishable in some way). 
+
+
+Read in the individual data (or a pairwise dataset) 
+
+```{r}
+library(tidyr)
+library(dplyr)
+library(nlme)
+
+acitelli_ind <- read.csv(file.choose(), header=TRUE)
+```
+
+Convert individual data to pairwise. 
+
+```{r}
+tempA <- acitelli_ind %>% 
+  mutate(genderE = gender, partnum = 1) %>%
+  mutate(gender = ifelse(gender == 1, "A", "P")) %>%
+  gather(variable, value, self_pos:genderE) %>%
+  unite(var_gender, variable, gender) %>%
+  spread(var_gender, value)
+
+tempB <- acitelli_ind %>% 
+  mutate(genderE = gender, partnum = 2) %>%
+  mutate(gender = ifelse(gender == 1, "P", "A")) %>%
+  gather(variable, value, self_pos:genderE)%>%
+  unite(var_gender, variable, gender) %>%
+  spread(var_gender, value)
+
+acitelli_pair <- bind_rows(tempA, tempB) %>%
+  arrange(cuplid) %>%
+  mutate(gender_A = ifelse(genderE_A == 1, "hus", "wife"), gender_A = as.factor(gender_A)) 
+  
+rm(tempA, tempB)
+```
+
+
+#Indistinguishable dyads.
+Make sure to use `method = "ML"`.
+
+```{r}
+apim_in <- gls(satisfaction_A ~ other_pos_A + other_pos_P,
+          data = acitelli_pair,
+          method = "ML",
+          correlation = corCompSymm(form=~1|cuplid),
+          na.action = na.omit)
+
+summary(apim_in)
+```
+
+#Distingushable Dyads
+Make sure to use `method = "ML"`.
+
+```{r}
+apim_di <- gls(satisfaction_A ~ gender_A + other_pos_A:gender_A + other_pos_P:gender_A - 1,
+    data = acitelli_pair,
+    method = "ML",
+    correlation = corCompSymm(form=~1|cuplid), 
+    weights = varIdent(form=~1|genderE_A), 
+    na.action = na.omit)
+
+summary(apim_di)
+```
+
+???2(distinguishable parameters - indistinguishable parameters) 
+
+= indistinguishable deviance - distinguishable deviance 
+
+?????????2(9 - 5) = 282.884 - 275.607 =  7.277, p = .122 
+
+The null hypothesis is that the dyads are indistinguishable. We cannot reject the null hypothesis, so we conclude that there is no empirical evidence that dyad members should be differentiated by their gender.
+
+In general, any two multilevel models can be compared if one model is a nested version of the other.  Model A is said to nested version of Model B, if Model A is a simpler version of Model B, i.e., one with fewer parameters.  One computes estimates each model (using ML if the models have different fixed effect or REML if the two models have the same fixed effects) and subtracts the deviance of Model B from Model A.  Under the null hypothesis that the simplifications of Model A are true, that difference is distributed as chi square where the degrees of freedom is the number of extra parameters that Model B has. 
+
