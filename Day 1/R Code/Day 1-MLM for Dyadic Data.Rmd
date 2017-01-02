@@ -5,14 +5,18 @@ output:
   html_notebook: default
 ---
 
-Read in the individual data and convert to pairwise. 
+Read in the individual data (or a pairwise dataset) 
 
 ```{r}
 library(tidyr)
 library(dplyr)
 
 acitelli_ind <- read.csv(file.choose(), header=TRUE)
+```
 
+Convert individual data to pairwise. If you imported a pairwise set, skip this chunk. 
+
+```{r}
 tempA <- acitelli_ind %>% 
   mutate(genderE = gender, partnum = 1) %>%
   mutate(gender = ifelse(gender == 1, "A", "P")) %>%
@@ -34,7 +38,7 @@ rm(tempA, tempB)
 ```
 
 
-Now we're ready to do multilevel modeling with the pairwise dataset.
+Now we're ready to do multilevel modeling with the pairwise dataset!
 
 ```{r}
 #install.packages("nlme")
