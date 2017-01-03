@@ -29,9 +29,9 @@ output: html_document
 
 ###Day 2: Moderation, Mediation, and Over-time Models
 + Lecture and Lab 9-12 and 1:00-4:00
-  + Moderation in the APIM
   + Mediation in the APIM
-
+  + Moderation in the APIM
+  
 > Lunch 12:00 PM tp 1:00 PM
   
   + Growth Curve Models
