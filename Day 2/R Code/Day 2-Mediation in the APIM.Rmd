@@ -5,6 +5,11 @@ output:
   html_notebook: default
   html_document: default
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+```
+
 Within the APIM both the causal variable and the mediator may be several variables and so it can be quite complicated. 
 
 ##Mediator between-dyads or within-dyads (2-1-2 Mediation)  

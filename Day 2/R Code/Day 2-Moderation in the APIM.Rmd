@@ -5,6 +5,11 @@ output:
   html_notebook: default
   html_document: default
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+```
+
 Read in the individual data (or a pairwise dataset) 
 
 ```{r}
