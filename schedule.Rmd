@@ -8,7 +8,7 @@ output: html_document
 ##Instructor: Randi L. Garcia
 
 ###Day 1:  Definitions, Restructuring, and The Actor-Partner Interdependence Model
-+ Lecture and Lab 9-12 and 1:00-4:00
+* Lecture and Lab 9-12 and 1:00-4:00
   + Definitions
   + Introduction to the Acitelli Dataset, Data Structures, and Restructuring
   + Nonindependence 
@@ -17,28 +17,29 @@ output: html_document
 > Lunch 12:00 PM tp 1:00 PM
 
   + Introduction to the APIM
-    + Indistinguishable Dyads
-    + Distinguishable Dyads
-    + Test of Distinguishability
+    - Indistinguishable Dyads
+    - Distinguishable Dyads
+    - Test of Distinguishability
   + Binary Outcomes in the APIM
-    + Using Generalized Mixed Modeling
-    + Using Generalized Estimating Equations
-+ Late Afternoon Session 4:00-5:00
+    - Using Generalized Mixed Modeling
+    - Using Generalized Estimating Equations
+* Late Afternoon Session 4:00-5:00
   + Homework (optional)
   + Restructure, Wok on Own Data, Individual Meetings
 
 ###Day 2: Moderation, Mediation, and Over-time Models
-+ Lecture and Lab 9-12 and 1:00-4:00
+* Lecture and Lab 9-12 and 1:00-4:00
   + Mediation in the APIM
   + Moderation in the APIM
   
 > Lunch 12:00 PM tp 1:00 PM
   
   + Growth Curve Models
-    + Individual Growth Curve
-    + Dyadic Growth Curves
+    - Individual Growth Curve
+    - Dyadic Growth Curves
   + Stability-Influence Model
-+ Late Afternoon Session 4:00-5:00
+  + Other Dyadic Models 
+* Late Afternoon Session 4:00-5:00
   + Homework (optional)
   + Wok on Own Data, Individual Meetings
 
