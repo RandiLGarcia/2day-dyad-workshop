@@ -1,0 +1,54 @@
+---
+title: 'Day 2: Common Fate Model'
+output:
+  pdf_document: default
+  html_notebook: default
+  html_document: default
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+```
+
+#Common Fate Model
+
+```{r}
+library(tidyr)
+library(dplyr)
+#install.packages("lavaan")
+library(lavaan)
+
+acitelli_ind <- read.csv(file.choose(), header=TRUE)
+```
+
+Individual to Dyad struture
+
+```{r}
+acitelli_dyd <- acitelli_ind %>% 
+  mutate(gender = ifelse(gender == 1, "H", "W")) %>%
+  gather(variable, value, self_pos:simhob) %>%
+  unite(var_gender, variable, gender) %>%
+  spread(var_gender, value)
+```
+
+Learn more about structural equation modeling with `lavaan' [here](http://lavaan.ugent.be/tutorial/index.html). 
+
+```{r}
+cfm.model <- '
+      # measurement model
+        satisfaction  =~ satisfaction_H + satisfaction_W 
+        tension =~ tension_H + tension_W
+
+      # structural model
+        satisfaction ~ tension
+
+      # residual correlations
+        satisfaction_H ~~ tension_H
+        satisfaction_W ~~ tension_W
+'
+
+cfm <- sem(cfm.model, data = acitelli_dyd)
+
+summary(cfm, fit.measures = TRUE)
+```
+

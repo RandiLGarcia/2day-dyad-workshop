@@ -127,6 +127,39 @@ summary(dyadGC_di_int)
 
 #Longitudnal APIM
 
+```{r}
+APIM_long  <- lme(satisf_A ~ genderE + conflict_A + conflict_P
+                    + genderE*conflict_A + genderE*conflict_P, 
+                    data = kashy_ppp, 
+                    random = ~ man + woman  + conflict_A + conflict_P - 1|dyadid,
+                    correlation = corCompSymm(form = ~1|dyadid/obsid),  
+                    weights = varIdent(form = ~1|genderS),
+                    na.action = na.omit)
+
+summary(APIM_long)
+```
+
 #Stability-Influence Model
 
-#Common Fate Model
+Create lagged variables.
+
+```{r}
+kashy_ppp <- kashy_ppp %>%
+  group_by(dyadid, person) %>%
+  mutate(conflict_A_lag = lag(conflict_A),
+         conflict_P_lag = lag(conflict_P))
+```
+
+Use the lagged actor and partner variables. Note: the random effects of the lagged vairables could not be estimated with default iteration criteria.  
+
+```{r}
+stability_influence  <- lme(satisf_A ~ genderE + conflict_A_lag + conflict_P_lag
+                    + genderE*conflict_A_lag + genderE*conflict_P_lag, 
+                    data = kashy_ppp, 
+                    random = ~ man + woman  + slope_m + slope_w - 1|dyadid,
+                    correlation = corCompSymm(form = ~1|dyadid/obsid),  
+                    weights = varIdent(form = ~1|genderS),
+                    na.action = na.omit)
+
+summary(stability_influence)
+```
