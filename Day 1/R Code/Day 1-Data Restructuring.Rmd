@@ -2,21 +2,29 @@
 title: 'Day 1: Data Restructuring'
 output:
   html_document: default
-  html_notebook: default
+  pdf_document: default
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+```
 
+[Back to schedule](schedule.html)
 
-Importing the Acitelli dataset into R.
+***
+
+#Importing the Acitelli dataset into R.
 
 ```{r}
 acitelli_ind <- read.csv(file.choose(), header=TRUE)
 
 #Note that you can also specify the file path.
-#acitelli_ind <- read.csv(file = "C:/Users/Randi/Dropbox/Two-day Dyads (UCSF)/Workshop Materials/Data/acitelli individual.csv", header=TRUE)
+#acitelli_ind <- read.csv("C:/Desktop/Workshop Materials/Data/acitelli individual.csv", header=TRUE)
 
 head(acitelli_ind)
 
-#View(acitelli_ind)
+#use this function call if you want to look at ALL of the data, or simply click on the data in your R environment
+#View(acitelli_ind) 
 ```
 
 
@@ -33,7 +41,7 @@ library(dplyr)
 
 
 
-Individual to Dyad struture
+##Individual to Dyad Structure
 
 ```{r}
 acitelli_dyd <- acitelli_ind %>% 
@@ -47,7 +55,7 @@ head(acitelli_dyd)
 
 
 
-Individual to Pairwise struture
+##Individual to Pairwise Structure
 
 ```{r}
 tempA <- acitelli_ind %>% 
@@ -71,3 +79,10 @@ rm(tempA, tempB)
 head(acitelli_pair)
 ```
 
+***
+
+#[Dave's Kenny's handy dandy restructuring apps](http://davidakenny.net/RDDD.htm)
+
+***
+
+[Back to schedule](schedule.html)

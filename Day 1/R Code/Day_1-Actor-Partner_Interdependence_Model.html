@@ -120,24 +120,14 @@ $(document).ready(function () {
 </div>
 
 
+<p><a href="schedule.html">Back to schedule</a></p>
+<hr />
 <p>Read in the individual data (or a pairwise dataset)</p>
 <pre class="r"><code>library(tidyr)
-library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: 'dplyr'</code></pre>
-<pre><code>## The following objects are masked from 'package:stats':
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>library(nlme)</code></pre>
-<pre><code>## 
-## Attaching package: 'nlme'</code></pre>
-<pre><code>## The following object is masked from 'package:dplyr':
-## 
-##     collapse</code></pre>
-<pre class="r"><code>acitelli_ind &lt;- read.csv(file.choose(), header=TRUE)</code></pre>
+library(dplyr)
+library(nlme)
+
+acitelli_ind &lt;- read.csv(file.choose(), header=TRUE)</code></pre>
 <p>Convert individual data to pairwise. If you imported a pairwise set, skip this chunk. I also create a gender variable that’s a <strong>factor</strong> and has labels <code>hus</code> and <code>wife</code>. This vairable will be useful later.</p>
 <pre class="r"><code>tempA &lt;- acitelli_ind %&gt;% 
   mutate(genderE = gender, partnum = 1) %&gt;%
@@ -155,11 +145,11 @@ tempB &lt;- acitelli_ind %&gt;%
 
 acitelli_pair &lt;- bind_rows(tempA, tempB) %&gt;%
   arrange(cuplid) %&gt;%
-  mutate(gender_A = ifelse(genderE_A == 1, &quot;hus&quot;, &quot;wife&quot;), gender_A = as.factor(gender_A)) 
+  mutate(gender_A = ifelse(genderE_A == 1, &quot;hus&quot;, &quot;wife&quot;), gender_A = as.factor(gender_A)) #String, factor
   
 rm(tempA, tempB)</code></pre>
-<div id="indistinguishable-dyads." class="section level1">
-<h1>Indistinguishable dyads.</h1>
+<div id="indistinguishable-dyads" class="section level1">
+<h1>Indistinguishable Dyads</h1>
 <pre class="r"><code>apim_in &lt;- gls(satisfaction_A ~ other_pos_A + other_pos_P,
           data = acitelli_pair,
           correlation = corCompSymm(form=~1|cuplid),
@@ -197,7 +187,7 @@ summary(apim_in)</code></pre>
 ## Degrees of freedom: 296 total; 293 residual</code></pre>
 <div id="pseudo-r2" class="section level2">
 <h2>Pseudo-R<sup>2</sup></h2>
-<p>How much variance does teh actor and partner effects explain? First we run the empty model so that we can calculate the pseudo-R<sup>2</sup>.</p>
+<p>How much variance in the response variable does the actor and partner effects explain together? First we run the empty model so that we can get the total variance in the response—which we need to calculate the pseudo-R<sup>2</sup>.</p>
 <pre class="r"><code>apim_in_empty &lt;- gls(satisfaction_A ~ 1,
           data = acitelli_pair,
           correlation = corCompSymm(form=~1|cuplid),
@@ -226,21 +216,24 @@ summary(apim_in_empty)</code></pre>
 ## 
 ## Residual standard error: 0.4969417 
 ## Degrees of freedom: 296 total; 295 residual</code></pre>
-<p>ICC = .618470 Residual SE^2 empty model = .246951 Residual SE^2 standard model = .174194 1 - (.174194 / .246951) = .295</p>
-<p>Called the “pseudo R2”—29.5% of the variance is explained by other positivity of the actor and the partner. Set it to zero if it’s negative.</p>
+<p><code>Rho</code>: ICC = .618470<br />
+<code>Residual SE</code><sup>2</sup> empty model = .246951<br />
+<code>Residual SE</code><sup>2</sup> standard model = .174194<br />
+<code>Pseudo-R^2^</code> = 1 - (.174194 / .246951) = .295</p>
+<p>Called the “pseudo R2”—29.5% of the variance in satisfaction is explained by other positivity of the actor and the partner. Set it to zero if it’s negative.</p>
 </div>
-<div id="interpretation" class="section level2">
-<h2>Interpretation</h2>
+<div id="interpretation-of-model-estimates" class="section level2">
+<h2>Interpretation of Model Estimates</h2>
 <div id="fixed-effects" class="section level3">
 <h3>Fixed Effects</h3>
-<p>Intercept: Predicted level of satisfaction for those scoring zero on the actor and partner variables. Because these variables are not centered, it is not all that meaningful.</p>
-<p>OtherPos_A or the Actor Variable: If you see your partner positively, are you satisfied in the relation? Yes!</p>
-<p>OtherPos_P or the Partner effect: If your partner sees you positively, are you satisfied in the relationship? (Or: If you see your partner positively, is your partner satisfied in the relationship?) Yes!</p>
+<p><strong><code>Intercept</code>:</strong> Predicted level of satisfaction for those scoring zero on the actor and partner variables. Because these variables are not centered, it is not all that meaningful.</p>
+<p><strong><code>other_pos_A</code> or the Actor Variable:</strong> If you see your partner positively, are you satisfied in the relation? Yes!</p>
+<p><strong><code>other_pos_P</code> or the Partner effect:</strong> If your partner sees you positively, are you satisfied in the relationship? (Or: If you see your partner positively, is your partner satisfied in the relationship?) Yes!</p>
 </div>
 <div id="random-effects" class="section level3">
 <h3>Random Effects</h3>
-<p>“CSR diagonal” is the error or unexplained variance. The partial ICC or CSR rho is .469.</p>
-<p>The model explains nearly 30% of the variance.</p>
+<p><code>Residual SE</code><sup>2</sup> is the error or unexplained variance.<br />
+The partial ICC, or <code>Rho</code>, is .469.</p>
 </div>
 </div>
 </div>
@@ -249,9 +242,12 @@ summary(apim_in_empty)</code></pre>
 <div id="interaction-approach" class="section level2">
 <h2>Interaction Approach</h2>
 <ol style="list-style-type: decimal">
-<li>Add distinguishing variable as a covariate. Note its coding.</li>
-<li>Have the distinguishing variable interact with the actor and the partner effects.</li>
-<li>These interactions evaluate whether actor and partner effects are the same for the two people.</li>
+<li>Add distinguishing variable as a covariate. Note its coding.<br />
+</li>
+<li>Have the distinguishing variable interact with the actor and the partner effects.<br />
+</li>
+<li>These interactions evaluate whether actor and partner effects are the same for the two people.<br />
+</li>
 <li>Add a <code>weights =</code> argument to allow for different error variances for the two members.</li>
 </ol>
 <pre class="r"><code>apim_di_int &lt;- gls(satisfaction_A ~ other_pos_A + other_pos_P + genderE_A + other_pos_A*genderE_A + other_pos_P*genderE_A,
@@ -304,9 +300,18 @@ summary(apim_di_int)</code></pre>
 ## Degrees of freedom: 296 total; 290 residual</code></pre>
 <div id="interpretation-of-effects" class="section level3">
 <h3>Interpretation of Effects</h3>
-<p>Intercept = .650854—The predicted score for husbands and wives who have a 0 on how positively they see the spouse (We should have centered!) Gender_A = .039605—Husband are very slightly more satisfied (about .08 points more) than wives when you control for how they both view their spouse. (Recall wives are -1 on Gender_A and Husbands are +1; the difference between husbands and wives is then twice the difference of the effect of Gender_A.) OtherPos_A = .401043—Actor Effect: The more positively you view your spouse, the more satisfied you are in the marriage. OtherPos_P = .291564—Partner Effect: The more positively your partner views you, the more satisfied you are in the marriage. Gender_A<em>OtherPos_A = .023343—The actor effect is stronger for husbands. Gender_A</em>OtherPos_P = -.029914—The partner effect is stronger H ??? W than W ??? H.</p>
-<p>Actor Effect for Husbands = .401043 + .023343 = 0.424386 Actor Effect for Wives = .401043 - .023343 = 0.37770 Partner Effect for W ??? H = .291564 + (-.029914) = 0.261650 Partner Effect for H ??? W = .291564 - (-.029914) = 0.321478</p>
-<p>.207460, error variance for Wives .143139, error variance for Husbands</p>
+<p><strong>Intercept</strong> = .650854—The predicted score for husbands and wives who have a 0 on how positively they see the spouse (We should have centered!)<br />
+<strong>genderE_A</strong> = .039605—Husband are very slightly more satisfied (about .08 points more) than wives when you control for how they both view their spouse. (Recall wives are -1 on Gender_A and Husbands are +1; the difference between husbands and wives is then twice the difference of the effect of Gender_A.)<br />
+<strong>other_pos_A</strong> = .401043—Actor Effect: The more positively you view your spouse, the more satisfied you are in the marriage.<br />
+<strong>other_pos_P</strong> = .291564—Partner Effect: The more positively your partner views you, the more satisfied you are in the marriage.<br />
+<strong>genderE_A<em>other_pos_A<strong> = .023343—The actor effect is stronger for husbands.<br />
+</strong>genderE_A</em>other_pos_P</strong> = -.029914—The partner effect is stronger H -&gt; W than W -&gt; H.</p>
+<p><strong>Actor Effect for Husbands</strong> = .401043 + .023343 = 0.424386<br />
+<strong>Actor Effect for Wives</strong> = .401043 - .023343 = 0.37770<br />
+<strong>Partner Effect for W -&gt; H</strong> = .291564 + (-.029914) = 0.261650<br />
+<strong>Partner Effect for H -&gt; W</strong> = .291564 - (-.029914) = 0.321478</p>
+<p>.207460, error variance for Wives<br />
+.143139, error variance for Husbands</p>
 </div>
 </div>
 <div id="two-intercept-approach" class="section level2">
@@ -318,8 +323,18 @@ summary(apim_di_int)</code></pre>
 <p>and when Hij = 0 and Wij = 1, the above becomes</p>
 <p>Yij = bW + aWAij + pWPij + eij</p>
 <p>Thus, one equals becomes two and we have actor and partner for both members.</p>
-<p>To implement this in R, we do the following.<br />
-1. Add distinguishing variable as a factor, using <code>gender_A</code> created above. 2. Have no intercept in the fixed model by adding <code>-1</code> to the formula. 3. Have the distinguishing variable (‘gender_A’) interact with actor and partner effect, but no actor and partner main effects. We need to use <code>:</code> for this instead of <code>*</code>. i) Separate actor and partner effects will be estimated for each member. 4. Keep the <code>weights =</code> argument to allow for different error variances for the two members.</p>
+<p>To implement this in R, we do the following:</p>
+<ol style="list-style-type: decimal">
+<li>Add distinguishing variable as a factor, using <code>gender_A</code> created above.</li>
+<li>Have no intercept in the fixed model by adding <code>-1</code> to the formula.</li>
+<li>Have the distinguishing variable (‘gender_A’) interact with actor and partner effect, but no actor and partner main effects. We need to use <code>:</code> for this instead of <code>*</code>.</li>
+</ol>
+<ol style="list-style-type: lower-roman">
+<li>Separate actor and partner effects will be estimated for each member.</li>
+</ol>
+<ol start="4" style="list-style-type: decimal">
+<li>Keep the <code>weights =</code> argument to allow for different error variances for the two members.</li>
+</ol>
 <pre class="r"><code>apim_di_two &lt;- gls(satisfaction_A ~ gender_A + other_pos_A:gender_A + other_pos_P:gender_A - 1,
     data = acitelli_pair,
     correlation = corCompSymm(form=~1|cuplid), 
@@ -415,7 +430,11 @@ summary(apim_di_empty)</code></pre>
 ## 
 ## Residual standard error: 0.4617875 
 ## Degrees of freedom: 296 total; 294 residual</code></pre>
-<p>Error variance for Wives: .280928 - Pseudo R2 is 1 - .207460 /.280928 = .2615 Error variance for Husbands: .213248 - Pseudo R2 is 1 - .143139/.213248 = .3288</p>
+<p>Error variance for Wives: .280928 - Pseudo R<sup>2</sup> is 1 - .207460 /.280928 = .2615<br />
+Error variance for Husbands: .213248 - Pseudo R<sup>2</sup> is 1 - .143139/.213248 = .3288</p>
+<hr />
+<p><a href="schedule.html">Back to schedule</a></p>
+<hr />
 </div>
 </div>
 

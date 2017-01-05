@@ -2,8 +2,17 @@
 title: "Day 1: Actor-Partner Interdependence Model"
 output:
   html_document: default
-  html_notebook: default
+  pdf_document: default
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+```
+
+[Back to schedule](schedule.html)
+
+***  
+
 Read in the individual data (or a pairwise dataset) 
 
 ```{r}
@@ -33,13 +42,13 @@ tempB <- acitelli_ind %>%
 
 acitelli_pair <- bind_rows(tempA, tempB) %>%
   arrange(cuplid) %>%
-  mutate(gender_A = ifelse(genderE_A == 1, "hus", "wife"), gender_A = as.factor(gender_A)) 
+  mutate(gender_A = ifelse(genderE_A == 1, "hus", "wife"), gender_A = as.factor(gender_A)) #String, factor
   
 rm(tempA, tempB)
 ```
 
 
-#Indistinguishable dyads.
+#Indistinguishable Dyads
 
 ```{r}
 apim_in <- gls(satisfaction_A ~ other_pos_A + other_pos_P,
@@ -50,8 +59,9 @@ apim_in <- gls(satisfaction_A ~ other_pos_A + other_pos_P,
 summary(apim_in)
 ```
 
-##Pseudo-R^2^
-How much variance does teh actor and partner effects explain? First we run the empty model so that we can calculate the pseudo-R^2^.
+##Pseudo-R^2^  
+
+How much variance in the response variable does the actor and partner effects explain together? First we run the empty model so that we can get the total variance in the response---which we need to calculate the pseudo-R^2^.
 
 ```{r}
 apim_in_empty <- gls(satisfaction_A ~ 1,
@@ -62,35 +72,33 @@ apim_in_empty <- gls(satisfaction_A ~ 1,
 summary(apim_in_empty)
 ```
 
-ICC = .618470
-Residual SE^2 empty model = .246951
-Residual SE^2 standard model = .174194
-1 - (.174194 / .246951) = .295
+`Rho`: ICC = .618470  
+`Residual SE`^2^ empty model = .246951  
+`Residual SE`^2^ standard model = .174194  
+Pseudo-R^2^ = 1 - (.174194 / .246951) = .295  
 
-Called the "pseudo R2"---29.5% of the variance is explained by other positivity of the actor and the partner. Set it to zero if it's negative.
+Called the "pseudo R2"---29.5% of the variance in satisfaction is explained by other positivity of the actor and the partner. Set it to zero if it's negative.  
 
-##Interpretation
-###Fixed Effects
-Intercept:  Predicted level of satisfaction for those scoring zero on the actor and partner variables.  Because these variables are not centered, it is not all that meaningful.
+##Interpretation of Model Estimates  
+###Fixed Effects  
+**`Intercept`:** Predicted level of satisfaction for those scoring zero on the actor and partner variables.  Because these variables are not centered, it is not all that meaningful.  
 
-OtherPos_A or the Actor Variable: If you see your partner positively, are you satisfied in the relation? Yes!
+**`other_pos_A` or the Actor Variable:** If you see your partner positively, are you satisfied in the relation? Yes!  
 
-OtherPos_P or the Partner effect: If your partner sees you positively, are you satisfied in the relationship? (Or: If you see your partner positively, is your partner satisfied in the relationship?) Yes!
+**`other_pos_P` or the Partner effect:** If your partner sees you positively, are you satisfied in the relationship? (Or: If you see your partner positively, is your partner satisfied in the relationship?) Yes!  
 
 ###Random Effects
-"CSR diagonal" is the error or unexplained variance.
-The partial ICC or CSR rho is .469.
-
-The model explains nearly 30% of the variance. 
+`Residual SE`^2^ is the error or unexplained variance.  
+The partial ICC, or `Rho`, is .469.  
 
 
 #Distingushable Dyads
 
-##Interaction Approach
-1. Add distinguishing variable as a covariate.  Note its coding.
-2. Have the distinguishing variable interact with the actor and the partner effects.
-3. These interactions evaluate whether actor and partner effects are the same for the two people.
-4. Add a `weights =` argument to allow for different error variances for the two members.
+##Interaction Approach  
+1. Add distinguishing variable as a covariate.  Note its coding.  
+2. Have the distinguishing variable interact with the actor and the partner effects.  
+3. These interactions evaluate whether actor and partner effects are the same for the two people.  
+4. Add a `weights =` argument to allow for different error variances for the two members.  
 
 
 ```{r}
@@ -103,41 +111,41 @@ apim_di_int <- gls(satisfaction_A ~ other_pos_A + other_pos_P + genderE_A + othe
 summary(apim_di_int)
 ```
 
-###Interpretation of Effects 
+###Interpretation of Effects  
 
-Intercept = .650854---The predicted score for husbands and wives who have a 0 on how positively they see the spouse (We should have centered!)
-Gender_A  = .039605---Husband are very slightly more satisfied (about .08 points more) than wives when you control for how they both view their spouse.  (Recall wives are -1 on Gender_A and Husbands are +1; the difference between husbands and wives is then twice the difference of the effect of Gender_A.)
-OtherPos_A = .401043---Actor Effect: The more positively you view your spouse, the more satisfied you are in the marriage.
-OtherPos_P = .291564---Partner Effect:  The more positively your partner views you, the more satisfied you are in the marriage.
-Gender_A*OtherPos_A = .023343---The actor effect is stronger for husbands.
-Gender_A*OtherPos_P = -.029914---The partner effect is stronger H ??? W than W ??? H.
+**Intercept** = .650854---The predicted score for husbands and wives who have a 0 on how positively they see the spouse (We should have centered!)  
+**genderE_A**  = .039605---Husband are very slightly more satisfied (about .08 points more) than wives when you control for how they both view their spouse.  (Recall wives are -1 on Gender_A and Husbands are +1; the difference between husbands and wives is then twice the difference of the effect of Gender_A.)  
+**other_pos_A** = .401043---Actor Effect: The more positively you view your spouse, the more satisfied you are in the marriage.  
+**other_pos_P** = .291564---Partner Effect:  The more positively your partner views you, the more satisfied you are in the marriage.  
+**genderE_A*other_pos_A** = .023343---The actor effect is stronger for husbands.  
+**genderE_A*other_pos_P** = -.029914---The partner effect is stronger H -> W than W -> H.  
 
-Actor Effect for Husbands = .401043 + .023343 = 0.424386
-Actor Effect for Wives = .401043 - .023343  = 0.37770
-Partner Effect for W ??? H = .291564 + (-.029914) = 0.261650
-Partner Effect for H ??? W = .291564 - (-.029914) = 0.321478
+**Actor Effect for Husbands** = .401043 + .023343 = 0.424386  
+**Actor Effect for Wives** = .401043 - .023343  = 0.37770  
+**Partner Effect for W -> H** = .291564 + (-.029914) = 0.261650  
+**Partner Effect for H -> W** = .291564 - (-.029914) = 0.321478  
 
-.207460, error variance for Wives
-.143139, error variance for Husbands
+.207460, error variance for Wives  
+.143139, error variance for Husbands  
 
 
+##Two-Intercept Approach  
+This involves a trick by which one equation becomes two.  We create two dummy variables: Hij which equals 1 for husbands and 0 for wives and Wij which equals 1 for wives and zero for husband.  We then estimate the following equation:  
 
-##Two-Intercept Approach
-This involves a trick by which one equation becomes two.  We create two dummy variables: Hij which equals 1 for husbands and 0 for wives and Wij which equals 1 for wives and zero for husband.  We then estimate the following equation:
+Yij = bHHij + aHHijAij + pHHijPij + Hijeij + bWWij + aWWijAij + pWWijPij + Wijeij  
 
-Yij = bHHij + aHHijAij + pHHijPij + Hijeij + bWWij + aWWijAij + pWWijPij + Wijeij
-
-Note that the equation has no ordinary intercept, but rather, in some sense, two intercepts, bH and bW.  Note that when Hij = 1 and Wij = 0, the above becomes
+Note that the equation has no ordinary intercept, but rather, in some sense, two intercepts, bH and bW.  Note that when Hij = 1 and Wij = 0, the above becomes  
 
 Yij = bH + aHAij + pHPij + eij
 
-and when Hij = 0 and Wij = 1, the above becomes
+and when Hij = 0 and Wij = 1, the above becomes  
 
 Yij = bW + aWAij + pWPij + eij
 
-Thus, one equals becomes two and we have actor and partner for both members.
+Thus, one equals becomes two and we have actor and partner for both members.  
 
-To implement this in R, we do the following.  
+To implement this in R, we do the following:  
+
 1. Add distinguishing variable as a factor, using `gender_A` created above.
 2. Have no intercept in the fixed model by adding `-1` to the formula.
 3. Have the distinguishing variable ('gender_A') interact with actor and partner effect, but no actor and partner main effects. We need to use `:` for this instead of `*`.
@@ -168,6 +176,12 @@ summary(apim_di_empty)
 ```
 
 Error variance for Wives: .280928 
-- Pseudo R2 is 1 - .207460 /.280928 = .2615
-Error variance for Husbands: .213248 
-- Pseudo R2 is 1 - .143139/.213248 = .3288
+- Pseudo R^2^ is 1 - .207460 /.280928 = .2615  
+Error variance for Husbands: .213248
+- Pseudo R^2^ is 1 - .143139/.213248 = .3288  
+
+***
+
+[Back to schedule](schedule.html)
+
+***

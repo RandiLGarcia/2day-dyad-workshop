@@ -13,12 +13,12 @@ knitr::opts_chunk$set(warning = FALSE)
 #Growth Curve Modeling
 
 ##Example Data Set: Kashy  
-Outcome: [ASATISF] Satisfaction  
+Outcome: `satisf_A` Satisfaction  
 Predictor Variables:  
-[TIME] time in days (there are 14 days with 0 = study midpoint)  
-[GENDER] Gender effects coded  
-[MAN, WOMAN] Gender dummy coded    
-Moderators: [CAAvoid, CPAvoid] Grand mean centered attachment avoidance (Actor and Partner)   
+`time`: time in days (there are 14 days with 0 = study midpoint)  
+`genderE`: Gender effects coded  
+`man`, `woman': Gender dummy coded    
+Moderators: `Cavoid_A`, `Cavoid_P` Grand mean centered attachment avoidance (Actor and Partner)   
 
 First, read in the new dataset. It's already in the person-period pairwise sturcture. 
 
@@ -29,7 +29,7 @@ library(nlme)
 
 kashy_ppp <- read.csv(file.choose(), header=TRUE)
 
-head(kashy)
+head(kashy_ppp)
 ```
 
 ##Basic Growth Curve Model for Men Only
@@ -50,6 +50,16 @@ GC_men <- lme(satisf_A ~ 1 + time,
               na.action = na.omit)
   
 summary(GC_men)
+rand(GC_men)
+```
+
+```{r}
+#GC_men <- lmer(satisf_A ~ 1 + time + (1 + time|dyadid),
+#              data = kashy_men, 
+#              na.action = na.omit)
+  
+#summary(GC_men)
+#rand(GC_men) #to test the random effects ALL together.
 ```
 
 The final fixed equation is: 
