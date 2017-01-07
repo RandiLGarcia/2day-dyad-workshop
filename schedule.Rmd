@@ -24,7 +24,7 @@ output:
   - [Introduction to the APIM](Day_1-Actor-Partner_Interdependence_Model.html)   
     - Indistinguishable Dyads  
     - Distinguishable Dyads  
-    - [Test of Distinguishability](Day_1-Tes_for_Distinguishability.html)  
+    - [Test of Distinguishability](Day_1-Test_for_Distinguishability.html)  
   - Binary Outcomes in the APIM
     - [Using Generalized Mixed Modeling](Day_1-Generalized_Linear_Mixed_Models.html)
     - Using Generalized Estimating Equations  
