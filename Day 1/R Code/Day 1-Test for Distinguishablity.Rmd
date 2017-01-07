@@ -15,31 +15,37 @@ knitr::opts_chunk$set(warning = FALSE)
 
 (Material in this handout is not in Kenny, Kashy, and Cook, 2006)
 
-Advantages of Treating Dyad Members as Indistinguishable
-	Simpler model with fewer parameters
-	More power in tests of actor and partner effects
-Disadvantages of Treating Dyad Members as Indistinguishable
-	If distinguishability makes a difference, then the model is wrong.
-	Sometimes the focus is on distinguishing variable and it is lost.
-	Some editors or reviewer will not allow you to do it.
+Advantages of Treating Dyad Members as Indistinguishable:  
 
-Two Runs
-	Distinguishable (either interaction or two-intercept, results are the same)
-		Different Actor and Partner Effects
-		Main Effect of Distinguishing Factor
-		Heterogeneity of Variance (CSH)
-	Indistinguishable (4 fewer parameters)
-		Same Actor and Partner Effects
-		No Main Effect of Distinguishing Factor
-		Homogeneity of Variance (CSR)
+  * Simpler model with fewer parameters
+  * More power in tests of actor and partner effects    
 
-Run using ML, not REML 
-Note the number of parameters
-	There should be 4 more than for the distinguishable run.
-Note the -2LogLikelihood (deviance)
-Subtract the deviances and number of parameters to get a ???2 with 4df
+Disadvantages of Treating Dyad Members as Indistinguishable: 
 
-If ???2 is not significant, then the data are consistent with the null hypothesis that the dyad members are indistinguishable. If however, ???2 is significant, then the data are inconsistent with the null hypothesis that the dyad members are indistinguishable (i.e., dyad members are distinguishable in some way). 
+  * If distinguishability makes a difference, then the model is wrong.
+  * Sometimes the focus is on distinguishing variable and it is lost.
+  * Some editors or reviewer will not allow you to do it.  
+
+Two Runs: 
+
+  * Distinguishable (either interaction or two-intercept, results are the same)
+    + Different Actor and Partner Effects
+    + Main Effect of Distinguishing Factor
+    + Heterogeneity of Variance: Add a `weights =` option
+  * Indistinguishable (4 fewer parameters)
+    + Same Actor and Partner Effects
+    + No Main Effect of Distinguishing Factor
+    + No `weights =` option  
+
+Run using `method = "ML"`, not `method = "REML"` (or blank because `REML` is the default).  
+
+Note the number of parameters:
+
+  * There should be 4 more than for the distinguishable run.  
+
+Note the -2LogLikelihood (deviance) for each model. Subtract the deviances and number of parameters to get a $\chi^2$ with 4 df. Or simply have R do it for you with `anova()`.  
+
+If $\chi^2$ is not significant, then the data are consistent with the null hypothesis that the dyad members are indistinguishable. If however, $\chi^2$ is significant, then the data are inconsistent with the null hypothesis that the dyad members are indistinguishable (i.e., dyad members are distinguishable in some way).  
 
 
 Read in the individual data (or a pairwise dataset) 
@@ -82,10 +88,10 @@ Make sure to use `method = "ML"`.
 
 ```{r}
 apim_in <- gls(satisfaction_A ~ other_pos_A + other_pos_P,
-          data = acitelli_pair,
-          method = "ML",
-          correlation = corCompSymm(form=~1|cuplid),
-          na.action = na.omit)
+               data = acitelli_pair,
+               method = "ML",
+               correlation = corCompSymm(form=~1|cuplid),
+               na.action = na.omit)
 
 summary(apim_in)
 ```
@@ -95,20 +101,28 @@ Make sure to use `method = "ML"`.
 
 ```{r}
 apim_di <- gls(satisfaction_A ~ gender_A + other_pos_A:gender_A + other_pos_P:gender_A - 1,
-    data = acitelli_pair,
-    method = "ML",
-    correlation = corCompSymm(form=~1|cuplid), 
-    weights = varIdent(form=~1|genderE_A), 
-    na.action = na.omit)
+               data = acitelli_pair, 
+               method = "ML",
+               correlation = corCompSymm(form=~1|cuplid), 
+               weights = varIdent(form=~1|genderE_A), 
+               na.action = na.omit)
 
 summary(apim_di)
 ```
 
-$\chi^2$ (distinguishable parameters - indistinguishable parameters) = indistinguishable deviance - distinguishable deviance 
+The following function call conducts the $\chi^2$ test for distinguishability.
 
-$\chi^2$(9 - 5) = 282.884 - 275.607 =  7.277, p = .122 
+```{r}
+anova(apim_in, apim_di)
+```
 
-The null hypothesis is that the dyads are indistinguishable. We cannot reject the null hypothesis, so we conclude that there is no empirical evidence that dyad members should be differentiated by their gender.
+But, you can always hand calulate it. For simplicity, in these calculations we use the customary -2*logLik, or the "deviance".     
 
-In general, any two multilevel models can be compared if one model is a nested version of the other.  Model A is said to nested version of Model B, if Model A is a simpler version of Model B, i.e., one with fewer parameters.  One computes estimates each model (using ML if the models have different fixed effect or REML if the two models have the same fixed effects) and subtracts the deviance of Model B from Model A.  Under the null hypothesis that the simplifications of Model A are true, that difference is distributed as chi square where the degrees of freedom is the number of extra parameters that Model B has. 
+$$\chi^2(parameters_{dist} - parameters_{indist}) = deviance_{indist} - deviance_{dist}$$
+
+$\chi^2(9 - 5) = 282.884 - 275.607 =  7.277$, $p = .122$
+
+The null hypothesis is that the dyads are indistinguishable. We cannot reject the null hypothesis, so we conclude that there is no empirical evidence that dyad members should be differentiated by their gender.  
+
+In general, any two multilevel models can be compared with `anova()` if one model is a nested version of the other. Model A is said to nested version of Model B, if Model A is a simpler version of Model B, i.e., one with fewer parameters. One computes estimates each model (using ML if the models have different fixed effect or REML if the two models have the same fixed effects) and subtracts the deviance of Model B from Model A.  Under the null hypothesis that the simplifications of Model A are true, that difference is distributed as chi square where the degrees of freedom is the number of extra parameters that Model B has. 
 

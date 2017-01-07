@@ -54,9 +54,9 @@ Now we're ready to do multilevel modeling with the pairwise dataset!
 library(nlme)
 
 mlm <- gls(satisfaction_A ~ genderE_A + Yearsmar,
-          data = acitelli_pair,
-          correlation = corCompSymm(form=~1|cuplid),
-          na.action = na.omit)
+           data = acitelli_pair,
+           correlation = corCompSymm(form=~1|cuplid),
+           na.action = na.omit)
 
 summary(mlm)
 ```

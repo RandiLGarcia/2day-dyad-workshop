@@ -10,12 +10,10 @@ Read in the individual data (or a pairwise dataset)
 library(tidyr)
 library(dplyr)
 
-#install.packages("glmm")
-library(glmm)
+#install.packages("lme4")
+library(lme4)
 
 acitelli_ind <- read.csv(file.choose(), header=TRUE)
-
-library(mosaic)
 ```
 
 Convert individual data to pairwise. I also create a simhobs variable that will be our binary response. 
@@ -39,40 +37,45 @@ acitelli_pair <- bind_rows(tempA, tempB) %>%
   arrange(cuplid) %>%
   mutate(gender_A = ifelse(genderE_A == 1, "hus", "wife"), 
          gender_A = as.factor(gender_A),
-         simhob_bin_A = ifelse(simhob_A == 1, 1, 0)) 
+         simhob_bin_A = ifelse(simhob_A == 1, 1, 0),
+         man = ifelse(genderE_A == 1, 1, 0),
+         woman = ifelse(genderE_A == 1, 0, 1)) 
   
 rm(tempA, tempB)
 ```
 
 
 ```{r}
-data(salamander)
-
-set.seed(1234)
-
-sal <- glmm(Mate ~ 0 + Cross, 
-            random = list(~ 0 + Female, ~ 0 + Male), 
-            varcomps.names = c("F", "M"), 
-            data = salamander,
-            family.glmm = bernoulli.glmm, 
-            m = 10^4)
-
-summary(sal)
-
-#doesn't run
-apim_bin <- glmm(simhob_bin_A ~ 1, 
-            random = list(~ 0 + cuplid),
-            varcomps.names = c("couple"),
-            data = acitelli_pair,
-            family.glmm = bernoulli.glmm, 
-            m = 10^4)
+apim_bin <- glmer(simhob_bin_A ~ other_pos_A + other_pos_P 
+                  + (1|cuplid),
+                  data = acitelli_pair,
+                  family = binomial,
+                  na.action = na.omit)
 
 summary(apim_bin)
+```
 
+```{r}
+apim_bin_di <- glmer(simhob_bin_A ~ other_pos_A + other_pos_P + genderE_A 
+                     + other_pos_A*genderE_A + other_pos_P*genderE_A 
+                     + (man + woman - 1|cuplid),
+                     data = acitelli_pair,
+                     family = binomial,
+                     na.action = na.omit)
+
+summary(apim_bin_di)
 ```
 
 
+```{r}
+apim_bin_di_two <- glmer(simhob_bin_A ~ gender_A + other_pos_A:gender_A + other_pos_P:gender_A - 1
+                         + (man + woman - 1|cuplid),
+                         data = acitelli_pair,
+                         family = binomial,
+                         na.action = na.omit)
 
+summary(apim_bin_di_two)
+```
 
 
 
