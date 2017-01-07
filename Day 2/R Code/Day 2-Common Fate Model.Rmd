@@ -1,14 +1,17 @@
 ---
 title: 'Day 2: Common Fate Model'
 output:
-  pdf_document: default
-  html_notebook: default
   html_document: default
+  pdf_document: default
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
 ```
+
+[Back to schedule](schedule.html)
+
+*** 
 
 #Common Fate Model
 
@@ -51,4 +54,10 @@ cfm <- sem(cfm.model, data = acitelli_dyd)
 
 summary(cfm, fit.measures = TRUE)
 ```
+
+***
+
+[Back to schedule](schedule.html)
+
+*** 
 

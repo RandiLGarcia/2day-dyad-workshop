@@ -20,7 +20,7 @@ Outcome: `satisf_A` Satisfaction
 Predictor Variables:  
 `time`: time in days (there are 14 days with 0 = study midpoint)  
 `genderE`: Gender effects coded  
-`man`, `woman': Gender dummy coded    
+`man`, `woman`: Gender dummy coded  
 Moderators: `Cavoid_A`, `Cavoid_P` Grand mean centered attachment avoidance (Actor and Partner)   
 
 First, read in the new dataset. It's already in the person-period pairwise sturcture. 
@@ -53,33 +53,23 @@ GC_men <- lme(satisf_A ~ 1 + time,
               na.action = na.omit)
   
 summary(GC_men)
-rand(GC_men)
-```
-
-```{r}
-#GC_men <- lmer(satisf_A ~ 1 + time + (1 + time|dyadid),
-#              data = kashy_men, 
-#              na.action = na.omit)
-  
-#summary(GC_men)
-#rand(GC_men) #to test the random effects ALL together.
 ```
 
 The final fixed equation is: 
 
-Satisfaction = 6.26 + .019(Time)
+$$Satisfaction = 6.26 + .019(Time)$$
 
 The Intercept = 6.26, which is interpreted as the average level of satisfaction at time = 0 (the study midpoint). The Coefficient for Time = .019. That is, over time, satisfaction increases .019 units a day. The slope is small, although it is statistically significant-thus, there is some evidence of an average increase in satisfaction over time for men.
 	
-	As for the random effects, the three important estimates are: 
+As for the random effects, the three important estimates are: 
 
-1.	Variance of Intercepts:  	Var(1) =  .476*
-2.	Variance of Slopes:		Var(2) =  .002*
-3.	Covariance Int/Slope:		Corr(2,1) = -.055
+1.	Standard deviation of Intercepts: `(Intercept)` =  .670
+2.	Standard deviation of Slopes: `time` =  .050
+3.	Correlation between Int/Slope: `Corr` = -.055
 
-Note that with SPSS, p values for variances (not correlations) must be divided by two to make the p values one-sided. There is statistically significant variance in the intercepts-some men were more satisfied than others at the midpoint. There is also significant variance in the slopes-some men are changing in satisfaction more than others.  The slope-intercept covariance is not statistically significant, although the estimate is in the negative direction. We would interpret this as, men with higher values at time 0 change more slowly than those with lower values.
+There is positive variance in the intercepts-some men were more satisfied than others at the midpoint. There is also positive variance in the slopes-some men are changing in satisfaction more than others.  The slope-intercept covariance is in the negative direction. We would interpret this as, men with higher values at time 0 change more slowly than those with lower values.
 
-Next, we can include the men's attachment avoidance as a moderator of the level of satisfaction at the study midpoint (main effect of avoidance), and as a moderator of the change in satisfaction over time (time by avoidance interaction). This is the addition of two fixed effects-the random effects remain unchanged. The interpretation of the random effects are as before, but they are interpreted with the effect of avoidance partialled. CAAVOID is grand mean centered avoidance of the actor.
+Next, we can include the men's attachment avoidance as a moderator of the level of satisfaction at the study midpoint (main effect of avoidance), and as a moderator of the change in satisfaction over time (time by avoidance interaction). This is the addition of two fixed effects-the random effects remain unchanged. The interpretation of the random effects are as before, but they are interpreted with the effect of avoidance partialled. `Cavoid_A` is grand mean centered avoidance of the actor.
 
 ```{r}
 GC_men_mod <- lme(satisf_A ~ 1 + time + Cavoid_A + time*Cavoid_A,
@@ -92,22 +82,22 @@ summary(GC_men_mod)
 
 The final fixed effects growth equation with attachment avoidance as a moderator is:
 
-Satisfaction = 6.26 + .019(Time) -.140(Avoid) + .0045(Time*Avoid)
+$$Satisfaction = 6.26 + .019(Time) -.140(Avoid) + .0045(Time*Avoid)$$
 
-The intercept = 6.26, the predicted satisfaction for men at the study midpoint who are at the mean on avoidance. There is a significant main effect of time, b = 0.019, that is, satisfaction increases by .019 each day for men who are at the mean on avoidance. There is a significant main effect of avoidance, b = -.140, such that men who are higher in avoidance are less satisfied at the study midpoint than men who are lower in avoidance. There is no significant Time X avoidance interaction, b = .0045, but to interpret the direction of this interaction we could calculate the slope for men who are high and low in avoidance: 
+The $intercept = 6.26$, the predicted satisfaction for men at the study midpoint who are at the mean on avoidance. There is a significant main effect of time, $b = 0.019$, that is, satisfaction increases by .019 each day for men who are at the mean on avoidance. There is a significant main effect of avoidance, $b = -.140$, such that men who are higher in avoidance are less satisfied at the study midpoint than men who are lower in avoidance. There is no significant Time X avoidance interaction, $b = .0045$, but to interpret the direction of this interaction we could calculate the slope for men who are high and low in avoidance: 
 
-Men's Avoidance SD = 0.9499
-High Avoidance (+1sd) Slope = .019 + .0045* 0.9499 = .0233
-Low Avoidance (-1sd) Slope = .019 + .0045*- 0.9499 = .0147
+$Men's Avoidance SD = 0.9499$  
+$High Avoidance (+1sd) Slope = .019 + .0045* 0.9499 = .0233$  
+$Low Avoidance (-1sd) Slope = .019 + .0045*- 0.9499 = .0147$  
 
 (Alternatively, we could re-center Avoidance to obtain these two values.)  Men high on avoidance become more satisfied over the course of the study than men lower on avoidance, but this difference is not significant.
 
 #Dyadic Growth Curve Modeling
 
-For dyadic growth curve modeling we are going to start with a two intercept model. Note how GENDER is included below as well as the NOINT subcommand. This will give us separate intercepts for women and men. We again use the mixed model procedure, but now we need a random statement as well as a repeated statement:
-The RANDOM statement estimates separate intercepts and slopes for men and women and all of the within-and-between person correlations (see slides for more description of all of these random effects).   
+For dyadic growth curve modeling we are going to start with a two intercept model. Note how `man` and `woman` is included below as well as `-1`. This will give us separate intercepts for women and men. We again use the `lme()` procedure, but now we need a `random =` statement as well as a `correlation = ` statement:  
+The `random =` statement estimates separate intercepts and slopes for men and women and all of the within-and-between person correlations (see slides for more description of all of these random effects).   
 
-The REPEATED Statement specifies the variances and covariances between the residuals. CSH = heterogeneous compound symmetry. This option asks SPSS to estimate different residual variances for men and women (set to be the same at each time point). There is one correlation between the residuals (i.e., the time-specific correlation between satisfaction scores will be CSH rho in the output).
+The `correlation = ` Statement specifies the variances and covariances between the residuals. `weights = varIdent(form = ~1|genderS)` asks R to estimate different residual variances for men and women (set to be the same at each time point). There is one correlation between the residuals (i.e., the time-specific correlation between satisfaction scores will be `Rho` in the output).
 
 ```{r}
 kashy_ppp <- kashy_ppp %>%
@@ -125,7 +115,7 @@ dyadGC_di_two  <- lme(satisf_A ~ man + woman + slope_m + slope_w  - 1,
 summary(dyadGC_di_two)
 ```
 
-Finally, as a reminder, instead of running the two intercept model with a bunch of test statements one could include gender in the model as a moderator. This is referred to as the "gender moderation model." The dyadic growth curve model for the gender moderation model is as follows. 
+Finally, as a reminder, one should include gender in the model as a moderator. This is referred to as the "gender moderation model." The dyadic growth curve model for the gender moderation model is as follows. 
 
 ```{r}
 dyadGC_di_int  <- lme(satisf_A ~ genderE + time + genderE*time, 

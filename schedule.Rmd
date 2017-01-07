@@ -45,7 +45,7 @@ output:
   - [Growth Curve Models](Day_2-Growth_Curve_Modeling.html) 
     - Individual Growth Curve  
     - Dyadic Growth Curves  
-  - Stability-Influence Model  
+  - [Stability-Influence Model](Day_2-Stability-Influence_Model.html)  
   - [Other Dyadic Models](Day_2-Common_Fate_Model.html)   
   + Late Afternoon Session 4:00-5:00  
     - Homework (optional)  
