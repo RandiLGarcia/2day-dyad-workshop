@@ -48,9 +48,9 @@ rm(tempA, tempB)
 ```
 
 #Example Data Set: Acitelli 
-Outcome: [Satisfaction_A] Satisfaction 
-Predictor Variables:  [OtherPos_A, OtherPos_P] Positivity of the Perception of the Other (Actor and Partner)
-Moderators: [Tension_A, Tension_P] Perception of Tension in the Relationship (Actor and Partner) 
+Outcome: [satisfaction_A] Satisfaction 
+Predictor Variables:  [other_pos_A, other_pos_P] Positivity of the Perception of the Other (Actor and Partner)  
+Moderators: [tension_A, tension_P] Perception of Tension in the Relationship (Actor and Partner)   
 
 ##Saturated Model
          
@@ -79,25 +79,26 @@ apim_sat_two <- gls(satisfaction_A ~ gender_A + Cother_pos_A:gender_A + Cother_p
 coef(summary(apim_sat_two))
 ```
 
-Note that the output only presents the random effects. We see that 2 of the 8 moderation effects are statistically significant and 2 are marginally significant.  Seven of the eight coefficients are positive.  Note that all actor and partner effects for Tension are negative, and all actor and partner effects for Other Positivity are positive.
+Note that the output only presents the random effects. We see that 2 of the 8 moderation effects are statistically significant and 2 are marginally significant. Seven of the eight coefficients are positive.  Note that all actor and partner effects for Tension are negative, and all actor and partner effects for Other Positivity are positive.  
 
-To more easily interpret the moderation effects, it is beneficial to switch the predictor and the moderator.  So in this case, we make the predictor be Tension and the moderator be Other Positivity.  Interpretation of the eight interactions:
+To more easily interpret the moderation effects, it is beneficial to switch the predictor and the moderator.  
+So in this case, we make the predictor be Tension and the moderator be Other Positivity.  Interpretation of the eight interactions:
 
-OtherPos_A with Tension_A (Husband): The negative effect that the more tension he sees in the relationship the less satisfied he feels is reduced if he sees her more positively.
+**other_pos_A with tension_A (Husband)**: The negative effect that the more tension he sees in the relationship the less satisfied he feels is reduced if he sees her more positively.  
 
-OtherPos_A with Tension_A (Wife): The negative effect that the more tension she sees in the relationship the less satisfied she feels is reduced if she sees him more positively.
+**other_pos_A with tension_A (Wife)**: The negative effect that the more tension she sees in the relationship the less satisfied she feels is reduced if she sees him more positively.  
 
-OtherPos_A with Tension_P (Husband): The negative effect that the more tension she sees in the relationship the less satisfied he feels is reduced if he sees her more positively.
+**other_pos_A with tension_P (Husband)**: The negative effect that the more tension she sees in the relationship the less satisfied he feels is reduced if he sees her more positively.  
 
-OtherPos_A with Tension_P (Wife): The negative effect that the more tension he sees in the relationship the less satisfied she feels is reduced if she sees him more positively.
+**other_pos_A with tension_P (Wife)**: The negative effect that the more tension he sees in the relationship the less satisfied she feels is reduced if she sees him more positively.  
 
-OtherPos_P with Tension_A (Husband): The negative effect that the more tension he sees in the relationship the less satisfied he feels is reduced if she sees him more positively.
+**other_pos_P with tension_A (Husband)**: The negative effect that the more tension he sees in the relationship the less satisfied he feels is reduced if she sees him more positively.  
 
-OtherPos_P with Tension_A (Wife): The negative effect that the more tension she sees in the relationship the less satisfied she feels is reduced if he sees her more positively.
+**other_pos_P with tension_A (Wife)**: The negative effect that the more tension she sees in the relationship the less satisfied she feels is reduced if he sees her more positively.  
 
-OtherPos_P with Tension_P (Husband): The negative effect that the more tension she sees in the relationship the less satisfied he feels is reduced if she sees him more positively.
+**other_pos_P with tension_P (Husband)**: The negative effect that the more tension she sees in the relationship the less satisfied he feels is reduced if she sees him more positively.  
 
-OtherPos_P with Tension_P (Wife): The negative effect that the more tension he sees in the relationship the less satisfied she feels is increased if he sees her more positively.
+**other_pos_P with tension_P (Wife)**: The negative effect that the more tension he sees in the relationship the less satisfied she feels is increased if he sees her more positively.  
 
 To test if these moderation effects are significantly different across gender we run the model with gender interactions.
 
@@ -118,7 +119,7 @@ Looking at these three-way interactions with gender we find no significant gende
 coef(summary(apim_sat_int))[15:18,]
 ```
 
-We see none are statistically significant and no clear pattern, as two are positive and two are negative.  When we test for complete indistinguishability, we find ???2(9) = 14.201, p = .115.  Thus, to simplify things, we estimate a model of complete indistinguishability, i.e., no gender effects.
+We see none are statistically significant and no clear pattern, as two are positive and two are negative.  When we test for complete indistinguishability, we find $\chi^2(9) = 14.201$, $p = .115$.  Thus, to simplify things, we estimate a model of complete indistinguishability, i.e., no gender effects.
 
 ##Indistinguishable Model
 
@@ -135,9 +136,9 @@ coef(summary(apim_mod_in))
 
 Note that all the interaction effects are positive and three of the four are statistically significant.
 
-To interpret the interactions and test for simple slopes, we can use the method of re-centering.  To estimate the simple slopes of actor tension at high and low actor OtherPos, for example, we re-estimate the model for those who are 1 standard deviation (sd) above and then 1 sd below the mean on actor OtherPos. We then look at the "main effect" of Tension as it will now refer to effect of Tension when OtherPos is one standard deviation above the mean (high) or one standard deviation below the mean (low).
+To interpret the interactions and test for simple slopes, we can use the method of re-centering.  To estimate the simple slopes of actor tension at high and low actor OtherPos, for example, we re-estimate the model for those who are 1 standard deviation (sd) above and then 1 sd below the mean on actor other_pos. We then look at the "main effect" of Tension as it will now refer to effect of `tension` when `other_pos` is one standard deviation above the mean (high) or one standard deviation below the mean (low).
 
-Note that to have OtherPos_A be zero when it is one sd above the mean, we subtract 1 sd from the centered score and add 1 sd for one sd below the mean:
+Note that to have other_pos_A be zero when it is one sd above the mean, we subtract 1 sd from the centered score and add 1 sd for one sd below the mean:
 
 ```{r}
 acitelli_pair <- acitelli_pair %>% 
@@ -160,7 +161,7 @@ apim_opa_high <- gls(satisfaction_A ~ Ctension_A*High_Cother_pos_A + Ctension_A*
 coef(summary(apim_opa_high))
 ```
 
-When OtherPos_A is high there is a significant but small negative effect of actor tension and no significant effect of partner tension on satisfaction. 
+When other_pos_A is high there is a significant but small negative effect of actor tension and no significant effect of partner tension on satisfaction. 
 
 ```{r}
 apim_opa_low <- gls(satisfaction_A ~ Ctension_A*Low_Cother_pos_A + Ctension_A*Cother_pos_P
@@ -172,7 +173,7 @@ apim_opa_low <- gls(satisfaction_A ~ Ctension_A*Low_Cother_pos_A + Ctension_A*Co
 coef(summary(apim_opa_low))
 ```
 
-Now we see that when OtherPos_A is low there is a larger statistically significant negative effect of actor tension on satisfaction. Likewise, when OtherPos_A is low there is a larger and this time significant negative effect of partner tension of satisfaction. What about the moderation by OtherPos_P?  We re-run the models with our new high and low OtherPos_P's.
+Now we see that when other_pos_A is low there is a larger statistically significant negative effect of actor tension on satisfaction. Likewise, when other_pos_A is low there is a larger and this time significant negative effect of partner tension of satisfaction. What about the moderation by other_pos_P?  We re-run the models with our new high and low other_pos_P's.
 
 ```{r}
 apim_opp_high <- gls(satisfaction_A ~ Ctension_A*Cother_pos_A + Ctension_A*High_Cother_pos_P
@@ -184,7 +185,7 @@ apim_opp_high <- gls(satisfaction_A ~ Ctension_A*Cother_pos_A + Ctension_A*High_
 coef(summary(apim_opp_high))
 ```
 
-As with OtherPos_A, when OtherPos_P is high there is a small but significant effect of actor tension on satisfaction, and an even smaller marginally significant effect of partner tension on satisfaction. 
+As with other_pos_A, when other_pos_P is high there is a small but significant effect of actor tension on satisfaction, and an even smaller marginally significant effect of partner tension on satisfaction. 
 
 ```{r}
 apim_opp_low <- gls(satisfaction_A ~ Ctension_A*Cother_pos_A + Ctension_A*Low_Cother_pos_P
@@ -196,14 +197,37 @@ apim_opp_low <- gls(satisfaction_A ~ Ctension_A*Cother_pos_A + Ctension_A*Low_Co
 coef(summary(apim_opp_low))
 ```
 
-But when OtherPos_P is low, there are larger and statistically significant negative effects of actor and partner tension on satisfaction. 
+But when other_pos_P is low, there are larger and statistically significant negative effects of actor and partner tension on satisfaction. 
 
-It would be nice beneficial to have a figure for the moderation of actor tension by OtherPos_A and OtherPos_P. Do graph this interaction we need to get the predicted values of satisfaction when OtherPos_A is high and Tension_A is high, when OtherPos_A is high and Tension_A is low, and so on.   
+It would be nice beneficial to have a figure for the moderation of actor tension by other_pos_A and other_pos_P. Do graph this interaction we need to get the predicted values of satisfaction when other_pos_A is high and tension_A is high, when other_pos_A is high and other_pos_A is low, and so on.   
 
 
 ```{r}
-#We can get these means from a bunch of EMMEANS statements. 
+nd1 <- acitelli_pair %>% 
+  summarise(Cother_pos_A = sd(Cother_pos_A), Cother_pos_P = 0, Ctension_A = sd(Ctension_A), Ctension_P = 0)
+nd2 <- acitelli_pair %>% 
+  summarise(Cother_pos_A = sd(Cother_pos_A), Cother_pos_P = 0, Ctension_A = -sd(Ctension_A), Ctension_P = 0)
+nd3 <- acitelli_pair %>% 
+  summarise(Cother_pos_A = -sd(Cother_pos_A), Cother_pos_P = 0, Ctension_A = sd(Ctension_A), Ctension_P = 0)
+nd4 <- acitelli_pair %>% 
+  summarise(Cother_pos_A = -sd(Cother_pos_A), Cother_pos_P = 0, Ctension_A = -sd(Ctension_A), Ctension_P = 0)
+nd5 <- acitelli_pair %>% 
+  summarise(Cother_pos_A = 0, Cother_pos_P = sd(Cother_pos_P), Ctension_A = sd(Ctension_A), Ctension_P = 0)
+nd6 <- acitelli_pair %>% 
+  summarise(Cother_pos_A = 0, Cother_pos_P = sd(Cother_pos_P), Ctension_A = -sd(Ctension_A), Ctension_P = 0)
+nd7 <- acitelli_pair %>% 
+  summarise(Cother_pos_A = 0, Cother_pos_P = -sd(Cother_pos_P), Ctension_A = sd(Ctension_A), Ctension_P = 0)
+nd8 <- acitelli_pair %>% 
+  summarise(Cother_pos_A = 0, Cother_pos_P = -sd(Cother_pos_P), Ctension_A = -sd(Ctension_A), Ctension_P = 0)
+            
+newdata_act <- bind_rows(nd1, nd2, nd3, nd4, nd5, nd6, nd7, nd8) 
 
+newdata_act <- newdata_act %>%
+  mutate(pred = predict(apim_mod_in, newdata_act),
+         tension = as.factor(rep(c("high", "low"),4)),
+         other_pos = c("actor-high", "actor-high", "actor-low", "actor-low", 
+                       "partner-high", "partner-high", "partner-low", "partner-low"))
+  
 ```
 
 These 8 predicted means are use to make a graph. The eight means are:  
@@ -217,18 +241,51 @@ Actor Tension
 |Partner OtherPos Low|	3.836|	3.323|
 |Partner OtherPos High|	3.869|	3.621|
 
-The line graph made by Excel is:
+The line graph made by `ggplot2`:
 
 ```{r}
 #install.packages("ggplot2")
 library(ggplot2)
 
+ggplot(newdata_act, aes(tension, pred)) +
+  geom_line(aes(group = other_pos, color = other_pos))+
+  xlim("low", "high") +
+  ylim(3, 4) +
+  labs(x = "Actor Tension", y = "Satisfaction") +
+  scale_color_discrete("Other Positivity")
 
 ```
 
 
+Similarly, it would be nice to see the moderation of partner tension by other_pos_A and other_pos_P. We can use a similar set of `summarise()` statements to get the 8 predicted satisfaction scores we need for this figure. 
 
-Similarly, it would be nice to see the moderation of partner tension by OtherPos_A and OtherPos_P. We can use a similar set of EMMEANS statements (see moderation syntax) to get the 8 predicted satisfaction scores we need for this figure. 
+```{r}
+nd1 <- acitelli_pair %>% 
+  summarise(Cother_pos_A = sd(Cother_pos_A), Cother_pos_P = 0, Ctension_P = sd(Ctension_P), Ctension_A = 0)
+nd2 <- acitelli_pair %>% 
+  summarise(Cother_pos_A = sd(Cother_pos_A), Cother_pos_P = 0, Ctension_P = -sd(Ctension_P), Ctension_A = 0)
+nd3 <- acitelli_pair %>% 
+  summarise(Cother_pos_A = -sd(Cother_pos_A), Cother_pos_P = 0, Ctension_P = sd(Ctension_P), Ctension_A = 0)
+nd4 <- acitelli_pair %>% 
+  summarise(Cother_pos_A = -sd(Cother_pos_A), Cother_pos_P = 0, Ctension_P = -sd(Ctension_P), Ctension_A = 0)
+nd5 <- acitelli_pair %>% 
+  summarise(Cother_pos_A = 0, Cother_pos_P = sd(Cother_pos_P), Ctension_P = sd(Ctension_P), Ctension_A = 0)
+nd6 <- acitelli_pair %>% 
+  summarise(Cother_pos_A = 0, Cother_pos_P = sd(Cother_pos_P), Ctension_P = -sd(Ctension_P), Ctension_A = 0)
+nd7 <- acitelli_pair %>% 
+  summarise(Cother_pos_A = 0, Cother_pos_P = -sd(Cother_pos_P), Ctension_P = sd(Ctension_P), Ctension_A = 0)
+nd8 <- acitelli_pair %>% 
+  summarise(Cother_pos_A = 0, Cother_pos_P = -sd(Cother_pos_P), Ctension_P = -sd(Ctension_P), Ctension_A = 0)
+            
+newdata_part <- bind_rows(nd1, nd2, nd3, nd4, nd5, nd6, nd7, nd8) 
+
+newdata_part <- newdata_part %>%
+  mutate(pred = predict(apim_mod_in, newdata_part),
+         tension = as.factor(rep(c("high", "low"),4)),
+         other_pos = c("actor-high", "actor-high", "actor-low", "actor-low", 
+                       "partner-high", "partner-high", "partner-low", "partner-low"))
+  
+```
 
 Partner Tension  
 
@@ -240,7 +297,12 @@ Partner Tension
 |Partner OtherPos High|	3.802|	3.688|
 
 ```{r}
-
+ggplot(newdata_part, aes(tension, pred)) +
+  geom_line(aes(group = other_pos, color = other_pos))+
+  xlim("low", "high") +
+  ylim(3, 4) +
+  labs(x = "Partner Tension", y = "Satisfaction") +
+  scale_color_discrete("Other Positivity")
 ```
 
 It is clear from the figures that the pattern of moderation is relatively the same. An obvious way to simplify this moderation model is to use as the average of OtherPos and Tension, i.e., make them couple variables.
@@ -261,7 +323,7 @@ apim_aveOPxT <- gls(satisfaction_A ~ Cother_pos_A + Cother_pos_P + Ctension_A + 
 summary(apim_aveOPxT)
 ```
 
-The effect of the interaction is positive which again means weaker effects of Tension when Other Positivity is high and stronger effect when low.  We can also use the deviance difference test to evaluate the effect of using a single interaction effect for the four effects.  We find c2(3) = 5.014, p = .171.  We can then conclude that this one interaction explains all four interaction effects.
+The effect of the interaction is positive which again means weaker effects of Tension when Other Positivity is high and stronger effect when low.  We can also use the deviance difference test to evaluate the effect of using a single interaction effect for the four effects.  We find $\chi^2(3) = 5.014$, $p = .171$.  We can then conclude that this one interaction explains all four interaction effects.
 
 ***
 
