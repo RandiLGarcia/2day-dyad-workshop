@@ -1,14 +1,17 @@
 ---
 title: 'Day 2: Moderation in the APIM'
 output:
-  pdf_document: default
-  html_notebook: default
   html_document: default
+  pdf_document: default
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
 ```
+
+[Back to schedule](schedule.html)
+
+*** 
 
 Read in the individual data (or a pairwise dataset) 
 
@@ -258,4 +261,10 @@ apim_aveOPxT <- gls(satisfaction_A ~ Cother_pos_A + Cother_pos_P + Ctension_A + 
 summary(apim_aveOPxT)
 ```
 
-The effect of the interaction is positive which again means weaker effects of Tension when Other Positivity is high and stronger effect when low.  We can also use the deviance difference test to evaluate the effect of using a single interaction effect for the four effects.  We find ???2(3) = 5.014, p = .171.  We can then conclude that this one interaction explains all four interaction effects.
+The effect of the interaction is positive which again means weaker effects of Tension when Other Positivity is high and stronger effect when low.  We can also use the deviance difference test to evaluate the effect of using a single interaction effect for the four effects.  We find c2(3) = 5.014, p = .171.  We can then conclude that this one interaction explains all four interaction effects.
+
+***
+
+[Back to schedule](schedule.html)
+
+*** 

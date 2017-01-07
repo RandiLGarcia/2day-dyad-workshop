@@ -15,7 +15,7 @@ knitr::opts_chunk$set(warning = FALSE)
 
 Read in the individual data (or a pairwise dataset) 
 
-```{r}
+```{r, error=TRUE}
 library(tidyr)
 library(dplyr)
 library(nlme)
@@ -57,6 +57,7 @@ apim_in <- gls(satisfaction_A ~ other_pos_A + other_pos_P,
           na.action = na.omit)
 
 summary(apim_in)
+names(apim_in)
 ```
 
 ##Pseudo-R^2^  
@@ -70,6 +71,17 @@ apim_in_empty <- gls(satisfaction_A ~ 1,
           na.action = na.omit)
 
 summary(apim_in_empty)
+```
+
+```{r}
+#This will perform a likilihood ratio test for the set of all fixed effects in the model.
+anova(apim_in, apim_in_empty)
+```
+
+```{r}
+#to have R calculate the pseudo-R2.
+pesudo_r2 <- 1-(apim_in$sigma^2/apim_in_empty$sigma^2)
+pesudo_r2
 ```
 
 `Rho`: ICC = .618470  

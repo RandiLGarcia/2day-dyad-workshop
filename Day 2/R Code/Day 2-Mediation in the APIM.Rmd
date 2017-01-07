@@ -1,14 +1,17 @@
 ---
 title: 'Day 2: Mediation in the APIM'
 output:
-  pdf_document: default
-  html_notebook: default
   html_document: default
+  pdf_document: default
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
 ```
+
+[Back to schedule](schedule.html)
+
+***  
 
 Within the APIM both the causal variable and the mediator may be several variables and so it can be quite complicated. 
 
@@ -279,3 +282,8 @@ Note that `% Mediated` equals `ab/c` or equivalently `1 - c'/c`.  This value can
 **Partner-Actor: Wife** ---Husbands who see their wives positively have wives who report less tension and the wives are more satisfied.  
 **Partner-Actor: Husband** ---Wives who see their husbands positively have husbands who report less tension and the husbands are more satisfied.  
 
+***
+
+[Back to schedule](schedule.html)
+
+***

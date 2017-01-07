@@ -2,8 +2,17 @@
 title: "Day 1: Test for Distinguishability"
 output:
   html_document: default
-  html_notebook: default
+  pdf_document: default
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+```
+
+[Back to schedule](schedule.html)
+
+***  
+
 (Material in this handout is not in Kenny, Kashy, and Cook, 2006)
 
 Advantages of Treating Dyad Members as Indistinguishable
@@ -95,11 +104,9 @@ apim_di <- gls(satisfaction_A ~ gender_A + other_pos_A:gender_A + other_pos_P:ge
 summary(apim_di)
 ```
 
-???2(distinguishable parameters - indistinguishable parameters) 
+$\chi^2$ (distinguishable parameters - indistinguishable parameters) = indistinguishable deviance - distinguishable deviance 
 
-= indistinguishable deviance - distinguishable deviance 
-
-?????????2(9 - 5) = 282.884 - 275.607 =  7.277, p = .122 
+$\chi^2$(9 - 5) = 282.884 - 275.607 =  7.277, p = .122 
 
 The null hypothesis is that the dyads are indistinguishable. We cannot reject the null hypothesis, so we conclude that there is no empirical evidence that dyad members should be differentiated by their gender.
 

@@ -17,16 +17,16 @@ output:
     - Definitions  
     - [Introduction to the Acitelli Dataset, Data Structures, and Restructuring](Day_1-Data_Restructuring.html)  
     - Nonindependence  
-    - Multilevel modeling for dyadic data  
+    - [Multilevel modeling for dyadic data](Day_1-MLM_for_Dyadic_Data.html)  
     
 > Lunch 12:00 PM to 1:00 PM  
 
-  - Introduction to the APIM  
+  - [Introduction to the APIM](Day_1-Actor-Partner_Interdependence_ Model.html)   
     - Indistinguishable Dyads  
     - Distinguishable Dyads  
-    - Test of Distinguishability  
-  - Binary Outcomes in the APIM  
-    - Using Generalized Mixed Modeling  
+    - [Test of Distinguishability](Day_1-Tes_for_Distinguishability.html)  
+  - Binary Outcomes in the APIM
+    - [Using Generalized Mixed Modeling](Day_1-Generalized_Linear_Mixed_Models.html)
     - Using Generalized Estimating Equations  
   + Late Afternoon Session 4:00-5:00  
     - Homework (optional)  
@@ -37,16 +37,16 @@ output:
 ###Day 2: Moderation, Mediation, and Over-time Models  
 
   + Lecture and Lab 9-12 and 1:00-4:00  
-    - Mediation in the APIM  
-    - Moderation in the APIM  
+    - [Mediation in the APIM](Day_2-Mediation_in_the_APIM.html)  
+    - [Moderation in the APIM](Day_2-Moderation_in_the_APIM.html) 
   
 > Lunch 12:00 PM tp 1:00 PM  
   
-  - Growth Curve Models  
+  - [Growth Curve Models](Day_2-Growth_Curve_Modeling.html) 
     - Individual Growth Curve  
     - Dyadic Growth Curves  
   - Stability-Influence Model  
-  - Other Dyadic Models  
+  - [Other Dyadic Models](Day_2-Common_Fate_Model.html)   
   + Late Afternoon Session 4:00-5:00  
     - Homework (optional)  
     - Wok on Own Data, Individual Meetings  
