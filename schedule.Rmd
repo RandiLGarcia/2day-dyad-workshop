@@ -21,7 +21,7 @@ output:
     
 > Lunch 12:00 PM to 1:00 PM  
 
-  - [Introduction to the APIM](Day_1-Actor-Partner_Interdependence_ Model.html)   
+  - [Introduction to the APIM](Day_1-Actor-Partner_Interdependence_Model.html)   
     - Indistinguishable Dyads  
     - Distinguishable Dyads  
     - [Test of Distinguishability](Day_1-Tes_for_Distinguishability.html)  

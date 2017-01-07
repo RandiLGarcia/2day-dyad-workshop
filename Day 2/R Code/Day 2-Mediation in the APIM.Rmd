@@ -40,11 +40,11 @@ Within the APIM both the causal variable and the mediator may be several variabl
   + For the Partner Effect
     - Actor-Partner
     - Partner-Actor
-* Distinguishable Dyads: 8 Indirect Effects
-  + Actor-Actor: Husband and Wife
-  + Partner-Partner: Husband and Wife
-  + Actor-Partner: Husband and Wife
-  + Partner-Actor: Husband and Wife
+* Distinguishable Dyads: 8 Indirect Effects  
+  + Actor-Actor: Husband and Wife  
+  + Partner-Partner: Husband and Wife  
+  + Actor-Partner: Husband and Wife  
+  + Partner-Actor: Husband and Wife  
 		
 #Example: Acitelli Data
 ##Distinguishable Dyads with a Mixed Mediator  
@@ -145,7 +145,8 @@ apim_stp1 <- gls(satisfaction_A ~ gender_A + other_pos_A:gender_A + other_pos_P:
 summary(apim_stp1)
 ```
 
-####Interpretation: All four paths are positive and statistically significant:Seeing your partner positively leads you and your partner to be more satisfied.  All four of these paths could potentially be mediated.
+####Interpretation: 
+All four paths are positive and statistically significant: Seeing your partner positively leads you and your partner to be more satisfied.  All four of these paths could potentially be mediated.
 
 ###Step 2: Testing the effects of the Other Positivity (X) on the mediators of Wife and Husband Tension (M).
 
@@ -159,7 +160,8 @@ apim_stp2 <- gls(tension_A ~ gender_A + other_pos_A:gender_A + other_pos_P:gende
 summary(apim_stp2)
 ```
 
-####Interpretation: All four paths of the "a" paths are negative and statistically significant: Seeing your partner positively leads you and your partner to have lower levels of tension.
+####Interpretation: 
+All four paths of the "a" paths are negative and statistically significant: Seeing your partner positively leads you and your partner to have lower levels of tension.
 
 ###Steps 3 and 4: Testing the effects of the Tension (M) and Other Positivity (X) on the Satisfaction (Y). 
 
@@ -184,20 +186,93 @@ summary(apim_stp3)
 
 #Testing Indirect Effects Using Multilevel Modeling
 
-* Sobel Test
-  + Save effect estimates and standard errors.
-    - Compute Z test.
-    - Low power.
-* Separately Test a and b
-  + Old fashioned.
-  + But may be making a comeback.
-* Bootstrapping
-  + Difficult currently
-  + See Pituch & Stapleton (Multivariate Behavioral Research, 2008) for a discussion of how to bootstrap in MLM.
-  + Option available in some MLM programs. Only for effects but not indirect effects.
-* Monte Carlo Method
-  + Appears to be the method of choice for MLMeM  
+  * Sobel Test
+    + Save effect estimates and standard errors.
+     - Compute Z test.
+     - Low power.
+  * Separately Test a and b
+    + Old fashioned.
+    + But may be making a comeback.
+  * Bootstrapping
+    + Difficult currently
+    + See Pituch & Stapleton (Multivariate Behavioral Research, 2008) for a discussion of how to bootstrap in MLM.
+    + Option available in some MLM programs. Only for effects but not indirect effects.
+  * Monte Carlo Method
+    + Appears to be the method of choice for MLMeM  
 
+##Sobel Test
+
+```{r}
+sobel <- function(aval, bval, seA, seB){
+  
+  ab <- aval*bval
+  ab_se <- sqrt(aval^2*seB^2+bval^2*seA^2)
+  z <- ab/ab_se
+  p <- 2*pnorm(z, lower.tail=FALSE)
+  
+  return(data.frame(indirect_effect = ab, z_value = z, p_value = p))
+   
+}
+```
+
+```{r}
+act_H_a <- coef(summary(apim_stp2))[3,1]
+act_H_a_se <- coef(summary(apim_stp2))[3,2]
+act_H_b <- coef(summary(apim_stp3))[7,1]
+act_H_b_se <- coef(summary(apim_stp3))[7,2]
+
+sobel(act_H_a, act_H_b, act_H_a_se, act_H_b_se)
+```
+
+##Bootstrapping
+
+Here is an example bootstrap function, but it is **not general** at all. It is also very slow, but it gives you an idea. 
+
+```{r}
+bootstrapCI <- function(data, m){
+
+  N <- dim(data)[1]
+  ab <- rep(0, m)
+  conf <- 95
+
+  for(i in 1:m){
+    samp_new <- sample_n(data, N, replace = TRUE)
+  
+    apim_stp2_new <- gls(tension_A ~ gender_A + other_pos_A:gender_A + other_pos_P:gender_A - 1,
+                   data = samp_new,
+                   correlation = corCompSymm(form=~1|cuplid), 
+                    weights = varIdent(form=~1|genderE_A), 
+                    na.action = na.omit)
+  
+    apim_stp3_new <- gls(satisfaction_A ~ gender_A + other_pos_A:gender_A + other_pos_P:gender_A 
+                  + tension_A:gender_A + tension_P:gender_A - 1,
+                   data = samp_new,
+                   correlation = corCompSymm(form=~1|cuplid), 
+                  weights = varIdent(form=~1|genderE_A), 
+                   na.action = na.omit)
+  
+    a <- coef(summary(apim_stp2_new))[3,1]
+    b <- coef(summary(apim_stp3_new))[7,1]
+    
+    ab[i] <- a*b
+  }
+  
+  low <- (1-conf/100)/2
+  upp <- ((1-conf/100)/2) + (conf/100)
+
+  LL <- quantile(ab,low)
+  UL <- quantile(ab,upp)
+  LL <- format(LL,digits=3)
+  UL <- format(UL,digits=3)
+  
+  return(data.frame(Lower = LL, Upper = UL))
+}
+
+bootstrapCI(acitelli_pair, 20)
+```
+
+
+##MCMAM [Selig & Preacher, 2008](http://www.quantpsy.org/medmc/medmc.htm)
 
 ```{r}
 #Function that returns mcmc CI. 

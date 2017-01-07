@@ -25,7 +25,7 @@ library(lme4)
 acitelli_ind <- read.csv(file.choose(), header=TRUE)
 ```
 
-Convert individual data to pairwise. I also create a simhobs variable that will be our binary response and two dummary variables that will be useful for estimating separate random intercepts for men and women. 
+Convert individual data to pairwise. I also create a simhobs variable that will be our binary response, two dummy variables that will be useful for estimating separate random intercepts for men and women, and a count variable `cigarettes`. 
 
 ```{r}
 tempA <- acitelli_ind %>% 
@@ -46,13 +46,77 @@ acitelli_pair <- bind_rows(tempA, tempB) %>%
   arrange(cuplid) %>%
   mutate(gender_A = ifelse(genderE_A == 1, "hus", "wife"), 
          gender_A = as.factor(gender_A),
-         simhob_bin_A = ifelse(simhob_A == 1, 1, 0),
+         simhob_bin_A = ifelse(simhob_A == 1, 1, 0), #forced binary variable
          man = ifelse(genderE_A == 1, 1, 0),
-         woman = ifelse(genderE_A == 1, 0, 1)) 
+         woman = ifelse(genderE_A == 1, 0, 1),
+         cigarettes_A = rpois(296, 0.7)) %>%
+  group_by(cuplid) %>%
+  mutate(cupcig = rpois(1, 0.7)) %>%
+  ungroup(cuplid) %>%
+  mutate(cigarettes_A = cigarettes_A + cupcig)
   
 rm(tempA, tempB)
 ```
 
+#Logistic Regression and Poisson Regression
+
+First, let's only select the women so we can do away with the nesting. 
+
+```{r}
+acitelli_women <- acitelli_pair %>%
+  filter(genderE_A == -1)
+```
+
+##Logistic Regression
+
+Then we run a ordinary logistic regression. 
+
+```{r}
+logistic_reg <- glm(simhob_bin_A ~ other_pos_A + other_pos_P,
+                    data = acitelli_women,
+                    family = binomial)
+
+summary(logistic_reg)
+```
+
+This gives us the increase in log odds of a woman having the same hobbies as her husband for every 1 unit increase in other positivity of the actor and partner other positivity.  
+
+If we want to easily switch estimates from "log odds" to "odds," we use the following:
+
+```{r}
+exp(logistic_reg$coefficients)
+```
+
+##Poisson Regression (aka, Log-Linear Regression)
+
+First, we run the model assuming the variance equals the mean. 
+
+```{r}
+poisson_reg <- glm(cigarettes_A ~ other_pos_A + other_pos_P,
+                   data = acitelli_women,
+                   family = poisson)
+
+summary(poisson_reg)
+exp(poisson_reg$coefficients)
+```
+
+But, we can also run a model relaxing the variance = mean assumption. That is, we can include an over-dispersion parameter with `family = quasipoisson`. 
+
+```{r}
+poissonOD_reg <- glm(cigarettes_A ~ other_pos_A + other_pos_P,
+                     data = acitelli_women,
+                     family = quasipoisson)
+
+summary(poissonOD_reg)
+exp(poissonOD_reg$coefficients)
+```
+
+
+#Logistic Multilevel Modeling (Binary variables)
+
+To account for the nonindependence, we can make use of the `glmer()` function from the `lme4` package. Note that we are asking for the variance of intercepts across dyads, that is the random intercept in traditonal multilevel modeling. The `gls()` function in the `nlme` package does not have an option for specifying a link function (i.e., there is no `family =` option). The syntax of `glmer()` differs a bit from `gls()` in that the random effects are specified within the formula: `+ (1/cuplid)`.
+
+##Indistinguishable Dyads
 
 ```{r}
 apim_bin <- glmer(simhob_bin_A ~ other_pos_A + other_pos_P 
@@ -63,6 +127,8 @@ apim_bin <- glmer(simhob_bin_A ~ other_pos_A + other_pos_P
 
 summary(apim_bin)
 ```
+
+##Distinguishable Dyads
 
 Interaction approach. 
 
@@ -87,6 +153,65 @@ apim_bin_di_two <- glmer(simhob_bin_A ~ gender_A + other_pos_A:gender_A + other_
                          na.action = na.omit)
 
 summary(apim_bin_di_two)
+```
+
+#Log-Linear Multilevel Modeling (Count variables)
+
+##Indistinguishable Dyads
+
+```{r}
+apim_poi <- glmer(cigarettes_A ~ other_pos_A + other_pos_P 
+                  + (1|cuplid),
+                  data = acitelli_pair,
+                  family = poisson,
+                  na.action = na.omit)
+
+summary(apim_poi)
+```
+
+##Distinguishable Dyads
+
+Interaction approach. 
+
+```{r}
+apim_poi_di <- glmer(cigarettes_A ~ other_pos_A + other_pos_P + genderE_A 
+                     + other_pos_A*genderE_A + other_pos_P*genderE_A 
+                     + (man + woman - 1|cuplid),
+                     data = acitelli_pair,
+                     family = poisson,
+                     na.action = na.omit)
+
+summary(apim_poi_di)
+```
+
+Two-intercept model.
+
+```{r}
+apim_poi_di_two <- glmer(cigarettes_A ~ gender_A + other_pos_A:gender_A + other_pos_P:gender_A - 1
+                         + (man + woman - 1|cuplid),
+                         data = acitelli_pair,
+                         family = poisson,
+                         na.action = na.omit)
+
+summary(apim_poi_di_two)
+```
+
+#Generalized Estimating Equations (GEE)
+
+##Indistinguishable Dyads
+
+```{r}
+#install.packages("gee")
+library(gee)
+
+apim_gee <- gee(simhob_bin_A ~ other_pos_A + other_pos_P, 
+                id = cuplid,
+                data = acitelli_pair, 
+                na.action = na.omit,
+                family = binomial, 
+                corstr = "unstructured")
+
+summary(apim_gee)
 ```
 
 ***
