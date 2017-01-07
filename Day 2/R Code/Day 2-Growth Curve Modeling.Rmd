@@ -1,8 +1,8 @@
 ---
 title: 'Day 2: Growth Curve Modeling'
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(message = FALSE)

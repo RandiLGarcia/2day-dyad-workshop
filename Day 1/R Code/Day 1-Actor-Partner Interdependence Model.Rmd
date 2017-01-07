@@ -1,8 +1,8 @@
 ---
-title: "Day 1: Actor-Partner Interdependence Model"
+title: 'Day 1: Actor-Partner Interdependence Model'
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(message = FALSE)
