@@ -126,3 +126,8 @@ The null hypothesis is that the dyads are indistinguishable. We cannot reject th
 
 In general, any two multilevel models can be compared with `anova()` if one model is a nested version of the other. Model A is said to nested version of Model B, if Model A is a simpler version of Model B, i.e., one with fewer parameters. One computes estimates each model (using ML if the models have different fixed effect or REML if the two models have the same fixed effects) and subtracts the deviance of Model B from Model A.  Under the null hypothesis that the simplifications of Model A are true, that difference is distributed as chi square where the degrees of freedom is the number of extra parameters that Model B has. 
 
+***
+
+[Back to schedule](schedule.html)
+
+***  

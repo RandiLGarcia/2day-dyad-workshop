@@ -146,11 +146,25 @@ summary(apim_bin_di)
 Two-intercept model.
 
 ```{r}
+#does not converge
 apim_bin_di_two <- glmer(simhob_bin_A ~ gender_A + other_pos_A:gender_A + other_pos_P:gender_A - 1
                          + (man + woman - 1|cuplid),
                          data = acitelli_pair,
                          family = binomial,
                          na.action = na.omit)
+
+apim_bin_di_two <- glmer(simhob_bin_A ~ gender_A + other_pos_A:gender_A + other_pos_P:gender_A - 1
+                         + (1|cuplid),
+                         data = acitelli_pair,
+                         family = binomial,
+                         na.action = na.omit)
+
+apim_bin_di_two <- glmer(simhob_bin_A ~ gender_A + other_pos_A:gender_A + other_pos_P:gender_A - 1
+                         + (man + woman - 1|cuplid),
+                         data = acitelli_pair,
+                         family = binomial,
+                         na.action = na.omit,
+                         nAGQ = 0) #Adaptive Gauss-Hermite Quadrature
 
 summary(apim_bin_di_two)
 ```

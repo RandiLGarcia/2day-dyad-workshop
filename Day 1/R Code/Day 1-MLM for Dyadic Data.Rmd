@@ -61,6 +61,7 @@ mlm <- gls(satisfaction_A ~ genderE_A + Yearsmar,
 summary(mlm)
 ```
 
+
 ##Interpretation
 ###Fixed Effects
 **Intercept:**  Predicted level of satisfaction for people married about 11 years.  
@@ -72,6 +73,27 @@ summary(mlm)
 `Residual standard error` is the error or unexplained variance (square-rooted).  
 
 Partial ICC equals .620. Husbands and wives are very similar in their level of marital satisfaction.  
+	
+#Bonus - Basic Descriptive Statistics and Plots
+
+```{r}
+#install.packages("ggplot2")
+library(ggplot2)
+
+qplot(satisfaction_A, data = acitelli_pair, bins = 10)
+
+qplot(Yearsmar, data = acitelli_pair, bins = 10)
+
+qplot(Yearsmar, satisfaction_A, data = acitelli_pair)
+
+acitelli_pair %>%
+  summarise(mean(satisfaction_A), 
+            sd(satisfaction_A),
+            median(satisfaction_A), 
+            min(satisfaction_A), 
+            max(satisfaction_A),
+            n())
+```
 	
 ***  
 	
