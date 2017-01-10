@@ -1,8 +1,8 @@
 ---
 title: 'Day 2: Common Fate Model'
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(message = FALSE)
@@ -39,8 +39,8 @@ Learn more about structural equation modeling with `lavaan' [here](http://lavaan
 ```{r}
 cfm.model <- '
       # measurement model
-        satisfaction  =~ satisfaction_H + satisfaction_W 
-        tension =~ tension_H + tension_W
+        satisfaction  =~ satisfaction_H + 1*satisfaction_W 
+        tension =~ tension_H + 1*tension_W
 
       # structural model
         satisfaction ~ tension

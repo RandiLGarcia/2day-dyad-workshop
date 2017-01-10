@@ -44,6 +44,20 @@ kashy_men <- kashy_ppp %>%
   filter(genderE == 1)
 ```
 
+Bonus spaghetti plot!
+
+```{r}
+library(ggplot2)
+
+kashy_men_small <- kashy_ppp %>%
+  filter(genderE == 1) %>%
+  filter(dyadid <21)
+
+ggplot(kashy_men_small, aes(time, satisf_A, group = as.factor(dyadid), color = as.factor(dyadid))) +
+  geom_point() +
+  geom_smooth(se = FALSE)
+```
+
 Instead of `gls()`, we use the `lme()` in the `nlme package`, but now we have occasion nested within person and no need for correlated errors. Now we are using traditional MLM and will make use of the random option instead of the correlation option in the syntax below. The random option asks `lme()` to estimate variance in the intercepts of satisfaction (`time` = 0, the study midpoint), and variance in the slopes (change in satisfaction overtime). The subject is `dyadid` because this variable is serving as our participant ID-recall that we are going to use men only and this is a heterosexual sample.  
 
 ```{r}
